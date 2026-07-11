@@ -1,0 +1,83 @@
+<!doctype html><html lang="es"><head><meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Ateneo de Virreyes · Reserva tu espacio</title>
+<link href="https://fonts.googleapis.com/css2?family=Oswald:wght@500;600&family=Mulish:wght@400;500;700&display=swap" rel="stylesheet">
+<style>
+ *{box-sizing:border-box} body{margin:0;font-family:'Mulish',system-ui,sans-serif;color:#2B2017;background:#F4ECDD}
+ .wrap{max-width:480px;margin:0 auto;min-height:100vh;padding-bottom:30px}
+ .disp{font-family:'Oswald',sans-serif;font-weight:600;letter-spacing:.04em;text-transform:uppercase}
+ header{background:#2B2017;color:#F4ECDD;padding:16px 18px;text-align:center;border-bottom:3px solid #C9A227}
+ .back{display:inline-block;color:#cdbf9c;font-size:12px;text-decoration:none;margin-bottom:8px}
+ header .lg{font-size:22px;color:#C9A227}
+ header .sub{font-size:11px;color:#bcd3c0;letter-spacing:.14em;margin-top:2px}
+ .sec{padding:16px 18px 4px}
+ .sec p{font-size:13px;color:#5a4a30;margin:0 0 6px}
+ label{display:block;font-weight:700;font-size:13px;color:#2B2017;margin:12px 18px 4px}
+ input,select{width:calc(100% - 36px);margin:0 18px;padding:12px;border:1px solid #d9c187;border-radius:10px;
+   font-size:15px;font-family:inherit;background:#fff}
+ .send{display:block;width:calc(100% - 36px);margin:16px 18px 6px;background:#25D366;color:#fff;border:none;
+   border-radius:12px;padding:14px;font-size:16px;font-weight:700;cursor:pointer;text-align:center}
+ .mail{display:block;width:calc(100% - 36px);margin:0 18px;background:#fff;color:#2F8F96;border:1px solid #2F8F96;
+   border-radius:10px;padding:11px;font-size:14px;font-weight:700;text-align:center;text-decoration:none;cursor:pointer}
+ .note{font-size:11px;color:#7a5e22;margin:10px 18px;text-align:center}
+</style></head><body>
+<div class="wrap">
+ <header>
+   <a href="./" class="back">← Volver a Ateneo de Virreyes</a>
+   <div class="disp lg">Reserva tu espacio</div>
+   <div class="sub">ATENEO DE VIRREYES</div>
+ </header>
+
+ <div class="sec"><p>Aparta un espacio del Ateneo por fecha y hora. Te confirmamos por WhatsApp.</p></div>
+
+ <label>Espacio</label>
+ <select id="esp">
+   <option value="Coworking">Coworking</option>
+   <option value="Estudio de Podcast">Estudio de Podcast</option>
+   <option value="Cine">Cine</option>
+   <option value="Estudio de Música (próximamente)" disabled>Estudio de Música (próximamente)</option>
+ </select>
+
+ <label>Fecha</label>
+ <input type="date" id="fecha">
+
+ <label>Hora</label>
+ <input type="time" id="hora" value="10:00">
+
+ <label>Tu nombre</label>
+ <input type="text" id="nombre" placeholder="Nombre y apellido">
+
+ <label>Habitación</label>
+ <input type="text" id="hab" placeholder="Número de habitación" inputmode="numeric">
+
+ <button class="send" onclick="enviarWA()">Enviar solicitud por WhatsApp</button>
+ <a class="mail" id="mailbtn" href="#" onclick="return enviarMail()">Enviar por correo a marketing</a>
+ <div class="note">Servicio del Ateneo · sin costo · sujeto a disponibilidad</div>
+</div>
+
+<script>
+const WA="525549305703";
+const MAIL="marketing@casapepe.mx";
+function hoy(){const d=new Date();return d.toISOString().slice(0,10);}
+document.getElementById('fecha').value=hoy();
+document.getElementById('fecha').min=hoy();
+function datos(){
+ const esp=document.getElementById('esp').value;
+ const fecha=document.getElementById('fecha').value;
+ const hora=document.getElementById('hora').value;
+ const nombre=document.getElementById('nombre').value.trim();
+ const hab=document.getElementById('hab').value.trim();
+ if(!fecha||!hora){alert('Indica fecha y hora.');return null;}
+ if(!nombre){alert('Por favor escribe tu nombre.');return null;}
+ if(!hab){alert('Por favor indica tu número de habitación.');return null;}
+ return {esp,fecha,hora,nombre,hab};
+}
+function texto(d){
+ return `🏛️ *Solicitud de espacio · Ateneo de Virreyes*\nEspacio: ${d.esp}\nFecha: ${d.fecha}\nHora: ${d.hora}\nNombre: ${d.nombre}\nHabitación: ${d.hab}`;
+}
+function enviarWA(){const d=datos();if(!d)return;window.open('https://wa.me/'+WA+'?text='+encodeURIComponent(texto(d)),'_blank');}
+function enviarMail(){const d=datos();if(!d)return false;
+ const sub=encodeURIComponent('Solicitud de espacio · Ateneo de Virreyes');
+ const body=encodeURIComponent(texto(d).replace(/\*/g,''));
+ window.location.href='mailto:'+MAIL+'?subject='+sub+'&body='+body;return false;}
+</script></body></html>

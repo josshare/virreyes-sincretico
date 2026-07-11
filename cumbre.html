@@ -1,0 +1,139 @@
+<!doctype html><html lang="es"><head><meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Cumbre · Cafetería de Montaña</title>
+<link href="https://fonts.googleapis.com/css2?family=Rye&family=Mulish:wght@400;500;700&display=swap" rel="stylesheet">
+<style>
+ :root{--mostaza:#E8A317;--mostaza2:#D99518;--verde:#1B4332;--verde2:#14532D;--oro:#C9A227;--crema:#FBF3DE}
+ *{box-sizing:border-box} body{margin:0;font-family:'Mulish',system-ui,sans-serif;color:#2a1c08;
+   background:#E8A317;
+   background-image:radial-gradient(rgba(120,80,10,.06) 1px,transparent 1px);background-size:6px 6px}
+ .wrap{max-width:480px;margin:0 auto;min-height:100vh;padding-bottom:90px}
+ .serif{font-family:'Rye',Georgia,serif}
+ header{background:var(--verde);color:var(--crema);padding:16px 18px;text-align:center;border-bottom:3px solid var(--oro)}
+ header .lg{font-size:22px;color:var(--oro);letter-spacing:.02em}
+ header .sub{font-size:12px;color:#cfe3d2;margin-top:2px}
+ header .hr{display:inline-block;margin-top:8px;font-size:12px;background:#0f3024;color:var(--oro);padding:4px 10px;border-radius:999px;border:1px solid var(--oro)}
+ .back{display:inline-block;color:#cfe3d2;font-size:12px;text-decoration:none;margin-bottom:6px}
+ .cat{margin:18px 14px 8px}
+ .cat h2{font-size:18px;color:var(--crema);background:var(--verde2);border:2px solid var(--oro);border-radius:10px;
+   padding:8px 14px;margin:0;text-align:center;letter-spacing:.03em}
+ .item{display:flex;align-items:flex-start;justify-content:space-between;gap:10px;background:var(--crema);
+   border:1px solid #e6cf8f;border-radius:10px;padding:10px 12px;margin:8px 14px}
+ .item .nm{font-weight:700;font-size:15px;color:#3a2a0c}
+ .item .ds{font-size:11px;color:#7a5e22;margin-top:3px;line-height:1.35}
+ .item .pr{font-weight:700;color:var(--verde2);white-space:nowrap}
+ .add{margin-top:8px;background:var(--verde);color:var(--crema);border:none;border-radius:8px;padding:7px 14px;
+   font-weight:700;font-size:13px;cursor:pointer}
+ .qty{display:flex;align-items:center;gap:10px;margin-top:8px}
+ .qty button{width:30px;height:30px;border-radius:8px;border:1px solid var(--verde);background:#fff;color:var(--verde);
+   font-size:18px;font-weight:700;cursor:pointer;line-height:1}
+ .qty span{font-weight:700;min-width:18px;text-align:center}
+ .note{background:#fff;border:1px solid var(--oro);color:var(--verde2);border-radius:8px;padding:0 10px;height:30px;font-size:12px;font-weight:700;cursor:pointer}
+ .notetxt{font-size:11px;color:#7a5e22;margin-top:5px;font-style:italic}
+ .fab{position:fixed;left:50%;transform:translateX(-50%);bottom:14px;width:92%;max-width:460px;
+   background:var(--verde);color:var(--crema);border:2px solid var(--oro);border-radius:14px;padding:13px 18px;
+   display:flex;align-items:center;justify-content:space-between;cursor:pointer;font-weight:700;box-shadow:0 4px 14px rgba(0,0,0,.25)}
+ .fab .c{background:var(--oro);color:var(--verde2);border-radius:999px;padding:2px 9px;font-size:13px;margin-right:8px}
+ .overlay{position:fixed;inset:0;background:rgba(20,10,0,.55);display:none;align-items:flex-end;z-index:50}
+ .sheet{background:var(--crema);width:100%;max-width:480px;margin:0 auto;border-radius:18px 18px 0 0;padding:18px;max-height:86vh;overflow:auto}
+ .sheet h3{font-family:'Rye',serif;color:var(--verde2);margin:0 0 10px}
+ .line{display:flex;justify-content:space-between;gap:8px;padding:8px 0;border-bottom:1px dashed #d9c187;font-size:14px}
+ .tot{display:flex;justify-content:space-between;font-size:18px;font-weight:700;color:var(--verde2);margin:12px 0}
+ input{width:100%;padding:12px;border:1px solid #d9c187;border-radius:10px;font-size:15px;font-family:inherit;margin:6px 0 4px}
+ .send{width:100%;background:#25D366;color:#fff;border:none;border-radius:12px;padding:14px;font-size:16px;font-weight:700;cursor:pointer;margin-top:8px}
+ .send:disabled{background:#b9b9b9;cursor:not-allowed}
+ .closed{background:#7a1d1d;color:#fff;border-radius:10px;padding:10px;text-align:center;font-size:13px;margin-top:8px}
+ .x{float:right;font-size:22px;color:#7a5e22;cursor:pointer;line-height:1}
+</style></head><body>
+<div class="wrap">
+ <header>
+   <a href="./" class="back">← Volver a Ateneo de Virreyes</a>
+   <div class="serif lg">CUMBRE</div>
+   <div class="sub">Cafetería de Montaña · CDMX</div>
+   <div style="font-size:10px;color:#bcd3c0;margin-top:4px;letter-spacing:.02em">Servicio a habitación · 9:00 – 18:00 h</div>
+ </header>
+ <div id="menu"></div>
+</div>
+
+<div class="fab" id="fab" onclick="openCart()"><span><span class="c" id="fabc">0</span>Ver pedido</span><span id="fabt">$0</span></div>
+
+<div class="overlay" id="ov">
+ <div class="sheet">
+   <span class="x" onclick="closeCart()">×</span>
+   <h3>Tu pedido</h3>
+   <div id="lines"></div>
+   <div class="tot"><span>Total</span><span id="ctot">$0</span></div>
+   <label style="font-weight:700;font-size:14px;color:#3a2a0c">¿A qué habitación te gustaría que subiéramos tu pedido?</label>
+   <input id="room" placeholder="Número de habitación" inputmode="numeric">
+   <div id="sched"></div>
+   <button class="send" id="send" onclick="enviar()">Enviar pedido por WhatsApp</button>
+ </div>
+</div>
+
+<script>
+const WA="525652472730";
+const MENU=[
+ {cat:"Cafés",items:[["Espresso",55],["Cappuccino",65],["Americano",50],["Chocolate",65],["Moka",65]]},
+ {cat:"Pan hecho en casa",items:[["Galleta de avena",15],["Pan de zanahoria",50],["Pan de elote",50],["Cuernito",18],["Hojaldre con membrillo",20],["Conchas",18],["Rol de canela",18]]},
+ {cat:"Para el camino",items:[["Sándwich (jamón y queso americano)",100],["Sándwich vegetariano (champiñones y pimientos)",100],["Baguette roast beef (roast beef y queso)",135],["Baguette vegetariano (champiñones, calabaza y queso panela)",120]]},
+ {cat:"Combos para explorar",items:[["Cuernito con jamón y queso + café americano",60],["Pizza de pepperoni + 2 refrescos 355 ml",140],["Chilaquiles + café americano",140],["Molletes + café americano",140]]},
+ {cat:"Pizza",items:[["Pepperoni",110],["Vegetariana (champiñones y pimientos)",95],["Mixta (champiñones, pimientos y pepperoni)",120]]},
+ {cat:"Para el antojo",items:[["Gelatina de yogurt",25]]},
+ {cat:"Tisanas — $60",items:[
+   ["Frutos Rojos",60,"Deliciosa mezcla de frutos rojos, como arándano y fresa, con el toque dulce de la manzana, la acidez de la jamaica y la fragancia de los pétalos de rosa."],
+   ["Tisana Frutal",60,"Armoniosa mezcla de siete frutos, como manzana, arándano, ciruela, etc., con un toque de jamaica y especias como canela y anís."],
+   ["Tisana de Mojito Kiwi",60,"Clásica mezcla herbal, como lemongrass, el toque característico de la hierbabuena y menta y la acidez del kiwi."],
+   ["Tisana Blend Rosa Fresa",60,"Deliciosa y aromática mezcla de fresa, acompañada del cuerpo del té negro y el elegante aroma de los pétalos de rosa."],
+   ["Tisana Mango Fresón",60,"Deliciosa mezcla de mango, fresa y manzana, con un toque de jamaica y decorada con pétalos de caléndula."],
+   ["Tisana Fresa Kiwi",60,"Deliciosa mezcla frutal de fresa y kiwi, acompañada de manzana y arándano, decorada con pétalos de rosa y un toque de jamaica y pimienta roja."],
+   ["Tisana Selva Roja",60,"Exótica mezcla de té negro, especiado con canela, pimienta roja y la acidez de la jamaica, además de la almendra en hojuela."],
+   ["Tisana Tropical",60,"Mix de frutas tropicales con toque especial de pétalos de caléndula y las propiedades de la cúrcuma."],
+   ["Tisana Jazmín y Durazno",60,"Aromática mezcla de jazmín, con pétalos de caléndula, flor de tila y el toque dulce de los trozos de durazno y piña."],
+   ["Tisana Frutos del Bosque",60,"Deliciosa y aromática mezcla de manzana, arándano y pasas, con un delicado toque de jamaica y té negro."],
+   ["Tisana Esmeralda",60,"Aromática mezcla de kiwi, piña, papaya, manzana y mango, solo fruta."],
+   ["Tisana Relajante",60,"Deliciosa mezcla herbal de damiana de California, tila, siete azahares y el delicioso sabor de la manzanilla."],
+   ["Té Verde Vainilla",60,"Té verde con aceite esencial de vainilla."],
+   ["Té Verde Menta",60],["Té Rojo Puerh",60],["Té Verde Jazmín",60]
+ ]}
+];
+const cart={};
+const money=n=>"$"+Number(n).toLocaleString('es-MX');
+function abierto(){const h=new Date().getHours();return h>=9&&h<18;}
+function render(){
+ const m=document.getElementById('menu');let h='';let id=0;
+ MENU.forEach(c=>{h+=`<div class="cat"><h2 class="serif">${c.cat}</h2></div>`;
+  c.items.forEach(it=>{const[nm,pr,ds]=it;const i='p'+(id++);
+   h+=`<div class="item"><div style="flex:1"><div class="nm">${nm}</div>${ds?`<div class="ds">${ds}</div>`:''}<div id="ctrl-${i}">${ctrl(i)}</div></div><div class="pr">${money(pr)}</div></div>`;
+   cart[i]=cart[i]||{name:nm,price:pr,qty:0};});});
+ m.innerHTML=h;updateFab();
+}
+function ctrl(i){const q=cart[i]?cart[i].qty:0;const note=cart[i]&&cart[i].note?cart[i].note:'';
+ if(q>0){return `<div class="qty"><button onclick="chg('${i}',-1)">−</button><span>${q}</span><button onclick="chg('${i}',1)">+</button><button class="note" onclick="addNote('${i}')" title="Agregar comentario">+ nota</button></div>`+(note?`<div class="notetxt">📝 ${note}</div>`:'');}
+ return `<button class="add" onclick="chg('${i}',1)">Agregar</button>`;}
+function addNote(i){const t=prompt('Comentario para '+cart[i].name+' (ej. sin azúcar, extra caliente):',cart[i].note||'');if(t!==null){cart[i].note=t.trim();document.getElementById('ctrl-'+i).innerHTML=ctrl(i);if(document.getElementById('ov').style.display==='flex')drawCart();}}
+function chg(i,d){cart[i].qty=Math.max(0,cart[i].qty+d);document.getElementById('ctrl-'+i).innerHTML=ctrl(i);updateFab();if(document.getElementById('ov').style.display==='flex')drawCart();}
+function items(){return Object.values(cart).filter(x=>x.qty>0);}
+function total(){return items().reduce((s,x)=>s+x.qty*x.price,0);}
+function count(){return items().reduce((s,x)=>s+x.qty,0);}
+function updateFab(){document.getElementById('fabc').textContent=count();document.getElementById('fabt').textContent=money(total());document.getElementById('fab').style.display=count()>0?'flex':'none';}
+function openCart(){drawCart();document.getElementById('ov').style.display='flex';}
+function closeCart(){document.getElementById('ov').style.display='none';}
+function drawCart(){
+ document.getElementById('lines').innerHTML=items().map(x=>`<div class="line"><span>${x.qty}× ${x.name}${x.note?' <span style="color:#7a5e22;font-style:italic">('+x.note+')</span>':''}</span><span>${money(x.qty*x.price)}</span></div>`).join('')||'<div style="color:#7a5e22">Tu pedido está vacío.</div>';
+ document.getElementById('ctot').textContent=money(total());
+ const ab=abierto();const s=document.getElementById('send');
+ s.disabled=!ab||count()===0;
+ document.getElementById('sched').innerHTML=ab?'':'<div class="closed">🏔️ Nuestra cafetería atiende de 9:00 a 18:00 h. ¡Te esperamos mañana para subirte tu pedido!</div>';
+}
+function enviar(){
+ if(!abierto()){alert('🏔️ Nuestra cafetería atiende de 9:00 a 18:00 h.');return;}
+ const room=document.getElementById('room').value.trim();
+ if(!room){alert('Por favor indícanos tu número de habitación.');document.getElementById('room').focus();return;}
+ if(count()===0){alert('Tu pedido está vacío.');return;}
+ let msg=`🏔️ *Pedido Cafetería Cumbre*\nHabitación: ${room}\n\n`;
+ items().forEach(x=>{msg+=`${x.qty}x ${x.name}${x.note?' ('+x.note+')':''} — ${money(x.qty*x.price)}\n`;});
+ msg+=`\n*Total: ${money(total())} MXN*`;
+ window.open('https://wa.me/'+WA+'?text='+encodeURIComponent(msg),'_blank');
+}
+render();
+</script></body></html>
