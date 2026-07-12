@@ -1,0 +1,871 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>virreyes-sincretico · Tablero CEO</title>
+<link href="https://fonts.googleapis.com/css2?family=Oswald:wght@500;600&family=Mulish:wght@400;500;700&display=swap" rel="stylesheet">
+<style>
+:root{
+  --ink:#2B2017; --cream:#F4ECDD; --paper:#FFF9F0; --line:#e2d5bf;
+  --accent:#B5472D; --teal:#2F8F96; --gold:#C9A227; --muted:#7a6a52;
+  --ok:#1f7a4d; --warn:#9a5b00; --bad:#9b2c2c;
+}
+*{box-sizing:border-box}
+body{
+  margin:0;font-family:'Mulish',system-ui,sans-serif;color:var(--ink);
+  background:
+    radial-gradient(120% 80% at 100% 0%,rgba(201,162,39,.18),transparent 50%),
+    linear-gradient(180deg,#ebe1cd 0%,var(--cream) 40%,#efe6d4 100%);
+  min-height:100vh;
+}
+.disp{font-family:'Oswald',sans-serif;font-weight:600;letter-spacing:.04em;text-transform:uppercase}
+.wrap{max-width:920px;margin:0 auto;padding:18px 16px 48px}
+header{
+  display:flex;flex-wrap:wrap;align-items:flex-end;justify-content:space-between;gap:12px;
+  padding:8px 0 18px;border-bottom:2px solid rgba(43,32,23,.12);margin-bottom:18px
+}
+header .brand{font-size:22px;color:var(--accent);margin:0}
+header .sub{font-size:12px;color:var(--muted);margin:4px 0 0}
+.badge{
+  display:inline-block;font-size:10px;font-weight:800;letter-spacing:.12em;text-transform:uppercase;
+  background:#fff4e5;color:var(--warn);border:1px solid #f0d2a0;padding:4px 8px;border-radius:999px;margin-left:8px;vertical-align:middle
+}
+.nav{display:flex;gap:8px;flex-wrap:wrap;align-items:center}
+.nav a,.nav button{
+  font:inherit;font-weight:700;font-size:13px;border-radius:10px;padding:10px 12px;
+  border:1px solid var(--line);background:var(--paper);color:var(--ink);text-decoration:none;cursor:pointer
+}
+.period{display:flex;gap:6px;align-items:center;font-size:13px;color:var(--muted)}
+.period select{font:inherit;padding:8px 10px;border-radius:8px;border:1px solid var(--line);background:#fff}
+.hero-kpi{
+  color:var(--cream);border-radius:16px;padding:20px 18px;margin-bottom:16px;
+  border:1px solid rgba(201,162,39,.45);
+  background-image:linear-gradient(135deg,#2B2017 0%,#3a2c1c 55%,#1f3a3d 100%);
+}
+.hero-kpi .label{font-size:11px;letter-spacing:.14em;text-transform:uppercase;color:var(--gold);margin:0 0 6px}
+.hero-kpi .value{font-family:'Oswald',sans-serif;font-size:clamp(36px,8vw,52px);line-height:1;margin:0}
+.hero-kpi .meta{margin-top:10px;font-size:13px;color:rgba(244,236,221,.78);display:flex;flex-wrap:wrap;gap:12px}
+.grid{display:grid;gap:12px;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));margin-bottom:16px}
+.card{background:var(--paper);border:1px solid var(--line);border-radius:14px;padding:14px 14px 12px}
+.card h3{margin:0 0 4px;font-size:11px;letter-spacing:.12em;text-transform:uppercase;color:var(--muted);font-weight:700}
+.card .n{font-family:'Oswald',sans-serif;font-size:28px;margin:0;color:var(--ink)}
+.card .s{font-size:12px;color:var(--muted);margin-top:4px}
+.funnel{display:grid;gap:8px;grid-template-columns:repeat(5,minmax(0,1fr));margin-bottom:16px}
+@media(max-width:720px){.funnel{grid-template-columns:1fr 1fr}}
+.stage{background:var(--paper);border:1px solid var(--line);border-radius:12px;padding:12px;min-height:96px}
+.stage .t{font-size:10px;font-weight:800;letter-spacing:.1em;text-transform:uppercase;color:var(--teal)}
+.stage .n{font-family:'Oswald',sans-serif;font-size:24px;margin:6px 0 2px}
+.stage .d{font-size:11px;color:var(--muted)}
+.alerts{display:grid;gap:8px;margin-bottom:16px}
+.alert{border-radius:12px;padding:12px 14px;font-size:13px;border:1px solid}
+.alert.ok{background:#e8f5ee;border-color:#b7dfc8;color:var(--ok)}
+.alert.warn{background:#fff4e5;border-color:#f0d2a0;color:var(--warn)}
+.panel{background:var(--paper);border:1px solid var(--line);border-radius:14px;padding:16px;margin-bottom:14px}
+.panel h2{margin:0 0 10px;font-size:16px;color:var(--accent)}
+table{width:100%;border-collapse:collapse;font-size:13px}
+th,td{text-align:left;padding:8px 6px;border-bottom:1px solid var(--line)}
+th{font-size:11px;letter-spacing:.08em;text-transform:uppercase;color:var(--muted)}
+.kpi-table .delta-up{color:var(--ok);font-weight:700}
+.kpi-table .delta-down{color:var(--bad);font-weight:700}
+.kpi-table .delta-flat{color:var(--muted);font-weight:700}
+.kpi-table .status{
+  display:inline-block;font-size:10px;font-weight:800;letter-spacing:.08em;text-transform:uppercase;
+  padding:3px 8px;border-radius:999px;border:1px solid
+}
+.kpi-table .status.ok{background:#e8f5ee;border-color:#b7dfc8;color:var(--ok)}
+.kpi-table .status.warn{background:#fff4e5;border-color:#f0d2a0;color:var(--warn)}
+.kpi-table .status.bad{background:#fdeceb;border-color:#f0b4b4;color:var(--bad)}
+.kpi-table td.num,.kpi-table th.num{text-align:right;font-variant-numeric:tabular-nums}
+.kpi-table tbody tr:last-child td{border-bottom:0}
+.panel .hint,.chart-panel .hint{margin:0 0 12px;font-size:12px;color:var(--muted)}
+.charts{display:grid;gap:12px;grid-template-columns:1.2fr 1fr;margin-bottom:14px}
+@media(max-width:720px){.charts{grid-template-columns:1fr}}
+.chart-panel{background:var(--paper);border:1px solid var(--line);border-radius:14px;padding:16px}
+.chart-panel h2{margin:0 0 4px;font-size:16px;color:var(--accent)}
+.chart-wrap{position:relative;height:240px;margin-top:8px}
+.chart-wrap.tall{height:280px}
+.token-hero{
+  display:grid;gap:12px;grid-template-columns:1.1fr 1fr;margin-bottom:16px
+}
+@media(max-width:720px){.token-hero{grid-template-columns:1fr}}
+.token-hero .hero-kpi{margin-bottom:0}
+.token-meta{display:grid;gap:8px;grid-template-columns:1fr 1fr}
+.token-meta .card{margin:0}
+.tag{
+  display:inline-block;font-size:10px;font-weight:800;letter-spacing:.1em;text-transform:uppercase;
+  padding:3px 8px;border-radius:999px;border:1px solid
+}
+.tag.mint{background:#e8f5ee;border-color:#b7dfc8;color:var(--ok)}
+.tag.burn{background:#fdeceb;border-color:#f0b4b4;color:var(--bad)}
+</style>
+<script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.8/dist/chart.umd.min.js"></script>
+</head>
+<body>
+<div class="wrap">
+  <header>
+    <div>
+      <p class="disp brand">virreyes-sincretico <span class="badge">Demo</span></p>
+      <p class="sub">Experiencias pagadas · tokens SNT (How to Be Mexican) · AARRR + HEART</p>
+    </div>
+    <div class="nav">
+      <div class="period">
+        <label for="days">Periodo</label>
+        <select id="days">
+          <option value="7" selected>7 días</option>
+          <option value="30">30 días</option>
+          <option value="90">90 días</option>
+        </select>
+      </div>
+      <a href="./">Ateneo</a>
+    </div>
+  </header>
+
+  <section class="hero-kpi" aria-live="polite">
+    <p class="label">Bookings atribuidos</p>
+    <p class="value" id="nsm">—</p>
+    <div class="meta">
+      <span id="nsmDelta">vs periodo anterior: —</span>
+      <span id="nsmGmv">GMV: —</span>
+      <span id="nsmCom">Comisión 10%: —</span>
+    </div>
+  </section>
+
+  <div class="charts" aria-label="Gráficas KPI">
+    <section class="chart-panel">
+      <h2 class="disp">Embudo AARRR</h2>
+      <p class="hint">Volumen por etapa del embudo</p>
+      <div class="chart-wrap tall"><canvas id="chartFunnel" aria-label="Gráfica embudo AARRR"></canvas></div>
+    </section>
+    <section class="chart-panel">
+      <h2 class="disp">Bookings por tipo</h2>
+      <p class="hint">Mix de experiencias atribuidas</p>
+      <div class="chart-wrap"><canvas id="chartTypes" aria-label="Gráfica bookings por tipo"></canvas></div>
+    </section>
+    <section class="chart-panel">
+      <h2 class="disp">Tendencia bookings</h2>
+      <p class="hint">Bookings y GMV · 7 / 30 / 90 días</p>
+      <div class="chart-wrap"><canvas id="chartTrend" aria-label="Gráfica tendencia bookings y GMV"></canvas></div>
+    </section>
+    <section class="chart-panel">
+      <h2 class="disp">Campañas UTM</h2>
+      <p class="hint">Sesiones vs first wins</p>
+      <div class="chart-wrap"><canvas id="chartCampaigns" aria-label="Gráfica campañas UTM"></canvas></div>
+    </section>
+  </div>
+
+  <div class="charts" aria-label="Gráficas tokens">
+    <section class="chart-panel">
+      <h2 class="disp">Mint vs Burn</h2>
+      <p class="hint">SNT emitidos en checkpoints vs quemados en canjes</p>
+      <div class="chart-wrap"><canvas id="chartTokens" aria-label="Gráfica mint vs burn SNT"></canvas></div>
+    </section>
+    <section class="chart-panel">
+      <h2 class="disp">Rewards por checkpoint</h2>
+      <p class="hint">Pool de recompensas del pasaporte digital</p>
+      <div class="chart-wrap"><canvas id="chartRewards" aria-label="Gráfica rewards por checkpoint"></canvas></div>
+    </section>
+  </div>
+
+  <section class="funnel" id="funnel" aria-label="Embudo AARRR"></section>
+  <section class="alerts" id="alerts" aria-label="Alertas"></section>
+  <div class="grid" id="heart"></div>
+
+  <section class="panel" aria-labelledby="kpi-table-title">
+    <h2 class="disp" id="kpi-table-title">Tabla de KPIs</h2>
+    <p class="hint">Resumen ejecutivo · valor, variación vs periodo anterior y meta del periodo</p>
+    <div id="kpiTable" class="kpi-table"></div>
+  </section>
+
+  <section class="token-hero" aria-label="Tokens SNT">
+    <div class="hero-kpi">
+      <p class="label">Tokens SNT · circulación</p>
+      <p class="value" id="tokenCirc">—</p>
+      <div class="meta">
+        <span id="tokenRate">10 SNT ≈ $1 USD</span>
+        <span id="tokenUsd">Valor ≈ —</span>
+        <span id="tokenNet">Neto mint−burn: —</span>
+      </div>
+    </div>
+    <div class="token-meta" id="tokenKpis"></div>
+  </section>
+
+  <section class="panel">
+    <h2 class="disp">Top campañas (UTM)</h2>
+    <div id="campaigns"></div>
+  </section>
+
+  <section class="panel">
+    <h2 class="disp">Tours Voces</h2>
+    <div id="tours"></div>
+  </section>
+
+  <section class="panel">
+    <h2 class="disp">Ventas atribuidas (demo)</h2>
+    <div id="salesTable"></div>
+  </section>
+
+  <section class="panel">
+    <h2 class="disp">Actividad token (mint / burn)</h2>
+    <p class="hint">Completions = mint · Canjes hotel = burn · contrato TouristPoints (TP/SNT)</p>
+    <div id="tokenTx"></div>
+  </section>
+
+  <section class="panel">
+    <h2 class="disp">Catálogo de canjes</h2>
+    <div id="rewardsCatalog"></div>
+  </section>
+</div>
+
+<script>
+/** Datos hardcodeados para presentación — sin Supabase.
+ *  Tokens SNT: modelo How to Be Mexican (mint en checkpoint, burn en canje hotel).
+ *  Tasa demo: 10 SNT ≈ $1 USD. Contrato: TouristPoints (TP). */
+const CHECKPOINT_REWARDS = [
+  { id: 1, tour: 'City Tour', name: 'Zócalo', reward: 10 },
+  { id: 2, tour: 'City Tour', name: 'Catedral Metropolitana', reward: 15 },
+  { id: 3, tour: 'City Tour', name: 'Palacio de Bellas Artes', reward: 20 },
+  { id: 4, tour: 'Frida Kahlo', name: 'Casa Azul', reward: 15 },
+  { id: 5, tour: 'Frida Kahlo', name: 'Mercado de Coyoacán', reward: 10 },
+  { id: 6, tour: 'Tacos & Markets', name: 'Mercado de la Merced', reward: 10 },
+  { id: 7, tour: 'Tacos & Markets', name: 'Tacos El Huequito', reward: 20 },
+  { id: 8, tour: 'Historic Center', name: 'Zócalo', reward: 10 },
+  { id: 9, tour: 'Historic Center', name: 'Palacio Nacional', reward: 15 },
+];
+
+const REWARDS_CATALOG = [
+  { id: 1, name: 'Extra Night', points_cost: 50 },
+  { id: 2, name: 'Delicious Meal', points_cost: 30 },
+  { id: 3, name: 'Upgrade', points_cost: 40 },
+];
+
+const DEMO = {
+  7: {
+    bookings: 12, bookings_prev: 8, gmv: 18490, commission: 1849,
+    sessions: 86, with_utm: 54, ad_landings: 31,
+    first_wins: 41, multi: 18,
+    cta_turitop: 22, cta_whatsapp: 37,
+    csat_avg: 4.4, csat_n: 19, shares: 6,
+    tour_starts: 28, poi_visited: 94, login_success: 14,
+    by_type: { voces: 18, turitop: 9, cumbre: 8, espacio: 6 },
+    campaigns: [
+      { campaign: 'qr_habitacion_voces', sessions: 28, first_wins: 16, intents: 21 },
+      { campaign: 'launch90_voces', sessions: 19, first_wins: 11, intents: 17 },
+      { campaign: 'prearrival_virreyes', sessions: 12, first_wins: 7, intents: 9 },
+    ],
+    tours: [
+      { tour_id: 'coyoacan', starts: 9, wa: 11, pois: 31 },
+      { tour_id: 'centro', starts: 7, wa: 8, pois: 24 },
+      { tour_id: 'xochimilco', starts: 5, wa: 6, pois: 18 },
+      { tour_id: 'teotihuacan', starts: 4, wa: 5, pois: 12 },
+    ],
+    sales: [
+      { sold_at: '2026-07-11', product_name: 'Mitos en el Ring', channel: 'turitop', amount_mxn: 1500, utm_campaign: 'launch90_voces' },
+      { sold_at: '2026-07-11', product_name: 'Voces · Coyoacán', channel: 'whatsapp', amount_mxn: 50, utm_campaign: 'qr_habitacion_voces' },
+      { sold_at: '2026-07-10', product_name: 'Vuelo en Globo Teotihuacán', channel: 'turitop', amount_mxn: 3200, utm_campaign: 'launch90_voces' },
+      { sold_at: '2026-07-09', product_name: 'Taller de Alebrijes', channel: 'turitop', amount_mxn: 690, utm_campaign: 'prearrival_virreyes' },
+      { sold_at: '2026-07-08', product_name: 'Voces · Centro Histórico', channel: 'whatsapp', amount_mxn: 50, utm_campaign: 'qr_habitacion_voces' },
+    ],
+    tokens: {
+      minted: 25, minted_prev: 0, burned: 0, burned_prev: 0,
+      mints: 2, burns: 0, wallets: 1, holders_active: 1,
+      avg_reward: 12.5, pool_total: 125, completion_rate: 0.22,
+      txs: [
+        { date: '2026-07-12 18:20', type: 'mint', description: 'Catedral Metropolitana', amount: 15, tx: '0x67ed49d3ffeab' },
+        { date: '2026-07-12 17:30', type: 'mint', description: 'Zócalo', amount: 10, tx: '0x3cbcd844dddf58' },
+      ],
+    },
+  },
+  30: {
+    bookings: 47, bookings_prev: 29, gmv: 71240, commission: 7124,
+    sessions: 340, with_utm: 210, ad_landings: 128,
+    first_wins: 152, multi: 71,
+    cta_turitop: 89, cta_whatsapp: 146,
+    csat_avg: 4.3, csat_n: 74, shares: 22,
+    tour_starts: 118, poi_visited: 402, login_success: 51,
+    by_type: { voces: 68, turitop: 34, cumbre: 29, espacio: 21 },
+    campaigns: [
+      { campaign: 'qr_habitacion_voces', sessions: 112, first_wins: 64, intents: 88 },
+      { campaign: 'launch90_voces', sessions: 78, first_wins: 45, intents: 71 },
+      { campaign: 'prearrival_virreyes', sessions: 41, first_wins: 24, intents: 33 },
+    ],
+    tours: [
+      { tour_id: 'coyoacan', starts: 34, wa: 41, pois: 128 },
+      { tour_id: 'centro', starts: 26, wa: 30, pois: 97 },
+      { tour_id: 'xochimilco', starts: 19, wa: 22, pois: 71 },
+      { tour_id: 'teotihuacan', starts: 15, wa: 18, pois: 52 },
+    ],
+    sales: [
+      { sold_at: '2026-07-11', product_name: 'Mitos en el Ring', channel: 'turitop', amount_mxn: 1500, utm_campaign: 'launch90_voces' },
+      { sold_at: '2026-07-11', product_name: 'Voces · Coyoacán', channel: 'whatsapp', amount_mxn: 50, utm_campaign: 'qr_habitacion_voces' },
+      { sold_at: '2026-07-10', product_name: 'Vuelo en Globo Teotihuacán', channel: 'turitop', amount_mxn: 3200, utm_campaign: 'launch90_voces' },
+      { sold_at: '2026-07-09', product_name: 'Taller de Alebrijes', channel: 'turitop', amount_mxn: 690, utm_campaign: 'prearrival_virreyes' },
+      { sold_at: '2026-07-05', product_name: 'Voces · Roma-Condesa', channel: 'whatsapp', amount_mxn: 50, utm_campaign: 'qr_habitacion_voces' },
+      { sold_at: '2026-07-02', product_name: 'Mitos en el Ring', channel: 'turitop', amount_mxn: 1500, utm_campaign: 'launch90_voces' },
+    ],
+    tokens: {
+      minted: 310, minted_prev: 180, burned: 120, burned_prev: 60,
+      mints: 24, burns: 3, wallets: 18, holders_active: 14,
+      avg_reward: 12.9, pool_total: 125, completion_rate: 0.48,
+      txs: [
+        { date: '2026-07-12 18:20', type: 'mint', description: 'Catedral Metropolitana', amount: 15, tx: '0x67ed49d3ffeab' },
+        { date: '2026-07-12 17:30', type: 'mint', description: 'Zócalo', amount: 10, tx: '0x3cbcd844dddf58' },
+        { date: '2026-07-10 14:05', type: 'burn', description: 'Delicious Meal', amount: -30, tx: '0xa1b2c3d4e5f6' },
+        { date: '2026-07-08 11:22', type: 'mint', description: 'Casa Azul', amount: 15, tx: '0x9f8e7d6c5b4a' },
+        { date: '2026-07-05 16:40', type: 'burn', description: 'Upgrade', amount: -40, tx: '0x112233445566' },
+        { date: '2026-07-03 09:15', type: 'mint', description: 'Tacos El Huequito', amount: 20, tx: '0xabcdef012345' },
+        { date: '2026-07-01 19:50', type: 'burn', description: 'Extra Night', amount: -50, tx: '0x778899aabbcc' },
+      ],
+    },
+  },
+  90: {
+    bookings: 128, bookings_prev: 71, gmv: 198650, commission: 19865,
+    sessions: 980, with_utm: 610, ad_landings: 390,
+    first_wins: 430, multi: 205,
+    cta_turitop: 260, cta_whatsapp: 410,
+    csat_avg: 4.5, csat_n: 210, shares: 64,
+    tour_starts: 340, poi_visited: 1180, login_success: 140,
+    by_type: { voces: 190, turitop: 95, cumbre: 82, espacio: 63 },
+    campaigns: [
+      { campaign: 'qr_habitacion_voces', sessions: 320, first_wins: 180, intents: 250 },
+      { campaign: 'launch90_voces', sessions: 210, first_wins: 125, intents: 190 },
+      { campaign: 'prearrival_virreyes', sessions: 120, first_wins: 70, intents: 95 },
+    ],
+    tours: [
+      { tour_id: 'coyoacan', starts: 95, wa: 110, pois: 360 },
+      { tour_id: 'centro', starts: 72, wa: 84, pois: 280 },
+      { tour_id: 'xochimilco', starts: 54, wa: 61, pois: 200 },
+      { tour_id: 'teotihuacan', starts: 41, wa: 48, pois: 150 },
+    ],
+    sales: [
+      { sold_at: '2026-07-11', product_name: 'Mitos en el Ring', channel: 'turitop', amount_mxn: 1500, utm_campaign: 'launch90_voces' },
+      { sold_at: '2026-07-10', product_name: 'Vuelo en Globo Teotihuacán', channel: 'turitop', amount_mxn: 3200, utm_campaign: 'launch90_voces' },
+      { sold_at: '2026-06-28', product_name: 'Taller de Alebrijes', channel: 'turitop', amount_mxn: 690, utm_campaign: 'prearrival_virreyes' },
+      { sold_at: '2026-06-15', product_name: 'Voces · Coyoacán', channel: 'whatsapp', amount_mxn: 50, utm_campaign: 'qr_habitacion_voces' },
+      { sold_at: '2026-05-20', product_name: 'Mitos en el Ring', channel: 'turitop', amount_mxn: 1500, utm_campaign: 'launch90_voces' },
+    ],
+    tokens: {
+      minted: 980, minted_prev: 520, burned: 410, burned_prev: 190,
+      mints: 76, burns: 11, wallets: 52, holders_active: 38,
+      avg_reward: 12.9, pool_total: 125, completion_rate: 0.61,
+      txs: [
+        { date: '2026-07-12 18:20', type: 'mint', description: 'Catedral Metropolitana', amount: 15, tx: '0x67ed49d3ffeab' },
+        { date: '2026-07-12 17:30', type: 'mint', description: 'Zócalo', amount: 10, tx: '0x3cbcd844dddf58' },
+        { date: '2026-07-10 14:05', type: 'burn', description: 'Delicious Meal', amount: -30, tx: '0xa1b2c3d4e5f6' },
+        { date: '2026-06-22 12:00', type: 'burn', description: 'Extra Night', amount: -50, tx: '0xdeadbeef0011' },
+        { date: '2026-06-10 16:30', type: 'mint', description: 'Palacio de Bellas Artes', amount: 20, tx: '0xcafebabe9988' },
+        { date: '2026-05-28 10:12', type: 'burn', description: 'Upgrade', amount: -40, tx: '0x5566778899aa' },
+      ],
+    },
+  },
+};
+
+const money = (n) => '$' + Number(n).toLocaleString('es-MX', { maximumFractionDigits: 0 });
+const pct = (a, b) => (!b ? '—' : Math.round((a / b) * 100) + '%');
+const el = (id) => document.getElementById(id);
+
+const COLORS = {
+  ink: '#2B2017',
+  accent: '#B5472D',
+  teal: '#2F8F96',
+  gold: '#C9A227',
+  muted: '#7a6a52',
+  ok: '#1f7a4d',
+  cream: '#F4ECDD',
+  types: ['#B5472D', '#2F8F96', '#C9A227', '#7a6a52'],
+};
+
+const charts = { funnel: null, types: null, trend: null, campaigns: null, tokens: null, rewards: null };
+
+function destroyChart(key) {
+  if (charts[key]) {
+    charts[key].destroy();
+    charts[key] = null;
+  }
+}
+
+function chartDefaults() {
+  Chart.defaults.font.family = "'Mulish', system-ui, sans-serif";
+  Chart.defaults.color = COLORS.muted;
+  Chart.defaults.borderColor = 'rgba(226,213,191,.9)';
+}
+
+function renderCharts(d, days) {
+  chartDefaults();
+
+  destroyChart('funnel');
+  charts.funnel = new Chart(el('chartFunnel'), {
+    type: 'bar',
+    data: {
+      labels: ['Acquisition', 'Activation', 'Retention', 'Revenue', 'Referral'],
+      datasets: [{
+        label: 'Volumen',
+        data: [d.sessions, d.first_wins, d.multi, d.bookings, d.csat_n],
+        backgroundColor: [COLORS.teal, COLORS.accent, COLORS.gold, COLORS.ink, COLORS.ok],
+        borderRadius: 8,
+        maxBarThickness: 42,
+      }],
+    },
+    options: {
+      responsive: true,
+      maintainAspectRatio: false,
+      plugins: {
+        legend: { display: false },
+        tooltip: { callbacks: { label: (ctx) => ` ${ctx.parsed.y.toLocaleString('es-MX')}` } },
+      },
+      scales: {
+        x: { grid: { display: false } },
+        y: { beginAtZero: true, ticks: { precision: 0 } },
+      },
+    },
+  });
+
+  destroyChart('types');
+  const typeEntries = Object.entries(d.by_type);
+  charts.types = new Chart(el('chartTypes'), {
+    type: 'doughnut',
+    data: {
+      labels: typeEntries.map(([k]) => k),
+      datasets: [{
+        data: typeEntries.map(([, v]) => v),
+        backgroundColor: COLORS.types,
+        borderColor: COLORS.cream,
+        borderWidth: 2,
+      }],
+    },
+    options: {
+      responsive: true,
+      maintainAspectRatio: false,
+      cutout: '58%',
+      plugins: {
+        legend: { position: 'bottom', labels: { boxWidth: 12, padding: 14 } },
+      },
+    },
+  });
+
+  destroyChart('trend');
+  const trendLabels = ['7 días', '30 días', '90 días'];
+  const trendKeys = [7, 30, 90];
+  charts.trend = new Chart(el('chartTrend'), {
+    type: 'line',
+    data: {
+      labels: trendLabels,
+      datasets: [
+        {
+          label: 'Bookings',
+          data: trendKeys.map((k) => DEMO[k].bookings),
+          borderColor: COLORS.accent,
+          backgroundColor: 'rgba(181,71,45,.12)',
+          fill: true,
+          tension: 0.35,
+          pointRadius: 4,
+          pointBackgroundColor: COLORS.accent,
+          yAxisID: 'y',
+        },
+        {
+          label: 'GMV (MXN)',
+          data: trendKeys.map((k) => DEMO[k].gmv),
+          borderColor: COLORS.teal,
+          backgroundColor: 'transparent',
+          tension: 0.35,
+          pointRadius: 4,
+          pointBackgroundColor: COLORS.teal,
+          borderDash: [5, 4],
+          yAxisID: 'y1',
+        },
+      ],
+    },
+    options: {
+      responsive: true,
+      maintainAspectRatio: false,
+      interaction: { mode: 'index', intersect: false },
+      plugins: {
+        legend: { position: 'bottom', labels: { boxWidth: 12, padding: 14 } },
+      },
+      scales: {
+        x: { grid: { display: false } },
+        y: {
+          position: 'left',
+          beginAtZero: true,
+          ticks: { precision: 0 },
+          title: { display: true, text: 'Bookings', color: COLORS.accent },
+        },
+        y1: {
+          position: 'right',
+          beginAtZero: true,
+          grid: { drawOnChartArea: false },
+          ticks: { callback: (v) => '$' + Number(v).toLocaleString('es-MX') },
+          title: { display: true, text: 'GMV', color: COLORS.teal },
+        },
+      },
+    },
+  });
+
+  destroyChart('campaigns');
+  charts.campaigns = new Chart(el('chartCampaigns'), {
+    type: 'bar',
+    data: {
+      labels: d.campaigns.map((c) => c.campaign.replace(/_/g, ' ')),
+      datasets: [
+        {
+          label: 'Sesiones',
+          data: d.campaigns.map((c) => c.sessions),
+          backgroundColor: COLORS.teal,
+          borderRadius: 6,
+          maxBarThickness: 28,
+        },
+        {
+          label: 'First wins',
+          data: d.campaigns.map((c) => c.first_wins),
+          backgroundColor: COLORS.accent,
+          borderRadius: 6,
+          maxBarThickness: 28,
+        },
+      ],
+    },
+    options: {
+      indexAxis: 'y',
+      responsive: true,
+      maintainAspectRatio: false,
+      plugins: {
+        legend: { position: 'bottom', labels: { boxWidth: 12, padding: 14 } },
+      },
+      scales: {
+        x: { beginAtZero: true, ticks: { precision: 0 } },
+        y: { grid: { display: false } },
+      },
+    },
+  });
+
+  const activeIdx = trendKeys.indexOf(Number(days));
+  if (charts.trend && activeIdx >= 0) {
+    charts.trend.data.datasets.forEach((ds) => {
+      ds.pointRadius = trendKeys.map((_, i) => (i === activeIdx ? 7 : 4));
+      ds.pointBorderWidth = trendKeys.map((_, i) => (i === activeIdx ? 2 : 0));
+      ds.pointBorderColor = COLORS.ink;
+    });
+    charts.trend.update();
+  }
+
+  destroyChart('tokens');
+  charts.tokens = new Chart(el('chartTokens'), {
+    type: 'bar',
+    data: {
+      labels: ['Minted', 'Burned', 'Circulating'],
+      datasets: [{
+        label: 'SNT',
+        data: [d.tokens.minted, d.tokens.burned, d.tokens.minted - d.tokens.burned],
+        backgroundColor: [COLORS.ok, COLORS.accent, COLORS.teal],
+        borderRadius: 8,
+        maxBarThickness: 48,
+      }],
+    },
+    options: {
+      responsive: true,
+      maintainAspectRatio: false,
+      plugins: {
+        legend: { display: false },
+        tooltip: { callbacks: { label: (ctx) => ` ${ctx.parsed.y.toLocaleString('es-MX')} SNT` } },
+      },
+      scales: {
+        x: { grid: { display: false } },
+        y: { beginAtZero: true, ticks: { precision: 0 } },
+      },
+    },
+  });
+
+  destroyChart('rewards');
+  charts.rewards = new Chart(el('chartRewards'), {
+    type: 'bar',
+    data: {
+      labels: CHECKPOINT_REWARDS.map((c) => c.name.length > 14 ? c.name.slice(0, 12) + '…' : c.name),
+      datasets: [{
+        label: 'SNT reward',
+        data: CHECKPOINT_REWARDS.map((c) => c.reward),
+        backgroundColor: COLORS.gold,
+        borderRadius: 6,
+        maxBarThickness: 22,
+      }],
+    },
+    options: {
+      indexAxis: 'y',
+      responsive: true,
+      maintainAspectRatio: false,
+      plugins: {
+        legend: { display: false },
+        tooltip: {
+          callbacks: {
+            title: (items) => CHECKPOINT_REWARDS[items[0].dataIndex].name,
+            afterTitle: (items) => CHECKPOINT_REWARDS[items[0].dataIndex].tour,
+            label: (ctx) => ` +${ctx.parsed.x} SNT`,
+          },
+        },
+      },
+      scales: {
+        x: { beginAtZero: true, ticks: { precision: 0 } },
+        y: { grid: { display: false } },
+      },
+    },
+  });
+}
+
+function renderTable(target, rows, cols) {
+  el(target).innerHTML = `<table><thead><tr>${cols.map((c) => `<th>${c.label}</th>`).join('')}</tr></thead><tbody>${
+    rows.map((r) => `<tr>${cols.map((c) => `<td>${c.fn(r)}</td>`).join('')}</tr>`).join('')
+  }</tbody></table>`;
+}
+
+function deltaHtml(cur, prev) {
+  const diff = cur - prev;
+  if (!prev && !cur) return '<span class="delta-flat">—</span>';
+  const cls = diff > 0 ? 'delta-up' : diff < 0 ? 'delta-down' : 'delta-flat';
+  const sign = diff > 0 ? '+' : '';
+  const pctChange = prev ? ` (${sign}${Math.round((diff / prev) * 100)}%)` : '';
+  return `<span class="${cls}">${sign}${diff}${pctChange}</span>`;
+}
+
+function statusBadge(status) {
+  const label = status === 'ok' ? 'En meta' : status === 'warn' ? 'Atención' : 'Fuera';
+  return `<span class="status ${status}">${label}</span>`;
+}
+
+/** 5–7 KPIs accionables (skill: no vanity metrics) */
+function kpiRows(d, days) {
+  const activation = d.sessions ? d.first_wins / d.sessions : 0;
+  const retentionShare = d.first_wins ? d.multi / d.first_wins : 0;
+  const gmvPrev = Math.round(d.gmv * (d.bookings_prev / Math.max(d.bookings, 1)));
+  const comPrev = Math.round(d.commission * (d.bookings_prev / Math.max(d.bookings, 1)));
+  const targets = {
+    7: { bookings: 10, activation: 0.4, retention: 0.25, gmv: 15000, commission: 1500, csat: 4.2, shares: 5, circ: 20, minted: 20, burned: 0 },
+    30: { bookings: 40, activation: 0.4, retention: 0.25, gmv: 60000, commission: 6000, csat: 4.2, shares: 18, circ: 150, minted: 250, burned: 80 },
+    90: { bookings: 110, activation: 0.4, retention: 0.25, gmv: 170000, commission: 17000, csat: 4.2, shares: 50, circ: 450, minted: 800, burned: 300 },
+  };
+  const t = targets[String(days)] || targets[7];
+  const actStatus = activation >= t.activation ? 'ok' : activation >= 0.3 ? 'warn' : 'bad';
+  const retStatus = retentionShare >= t.retention ? 'ok' : retentionShare >= 0.18 ? 'warn' : 'bad';
+  const csatStatus = d.csat_avg >= t.csat ? 'ok' : d.csat_avg >= 4.0 ? 'warn' : 'bad';
+
+  return [
+    {
+      kpi: 'Bookings atribuidos',
+      level: 'Principal',
+      value: String(d.bookings),
+      delta: deltaHtml(d.bookings, d.bookings_prev),
+      target: String(t.bookings),
+      status: d.bookings >= t.bookings ? 'ok' : d.bookings >= t.bookings * 0.8 ? 'warn' : 'bad',
+    },
+    {
+      kpi: 'GMV',
+      level: 'Revenue',
+      value: money(d.gmv),
+      delta: deltaHtml(d.gmv, gmvPrev),
+      target: money(t.gmv),
+      status: d.gmv >= t.gmv ? 'ok' : d.gmv >= t.gmv * 0.8 ? 'warn' : 'bad',
+    },
+    {
+      kpi: 'Comisión 10%',
+      level: 'Revenue',
+      value: money(d.commission),
+      delta: deltaHtml(d.commission, comPrev),
+      target: money(t.commission),
+      status: d.commission >= t.commission ? 'ok' : d.commission >= t.commission * 0.8 ? 'warn' : 'bad',
+    },
+    {
+      kpi: 'Activation (first-win)',
+      level: 'AARRR',
+      value: pct(d.first_wins, d.sessions),
+      delta: `<span class="delta-flat">${d.first_wins}/${d.sessions} sesiones</span>`,
+      target: Math.round(t.activation * 100) + '%',
+      status: actStatus,
+    },
+    {
+      kpi: 'Retention (≥2 acciones)',
+      level: 'AARRR',
+      value: pct(d.multi, d.first_wins),
+      delta: `<span class="delta-flat">${d.multi} multi-sesiones</span>`,
+      target: Math.round(t.retention * 100) + '%',
+      status: retStatus,
+    },
+    {
+      kpi: 'CSAT',
+      level: 'HEART',
+      value: `${d.csat_avg}/5`,
+      delta: `<span class="delta-flat">${d.csat_n} respuestas</span>`,
+      target: `≥ ${t.csat}`,
+      status: csatStatus,
+    },
+    {
+      kpi: 'Shares / referral',
+      level: 'Referral',
+      value: String(d.shares),
+      delta: `<span class="delta-flat">${d.cta_whatsapp} CTA WA</span>`,
+      target: String(t.shares),
+      status: d.shares >= t.shares ? 'ok' : d.shares >= t.shares * 0.7 ? 'warn' : 'bad',
+    },
+    {
+      kpi: 'SNT en circulación',
+      level: 'Token',
+      value: String(d.tokens.minted - d.tokens.burned),
+      delta: deltaHtml(d.tokens.minted - d.tokens.burned, d.tokens.minted_prev - d.tokens.burned_prev),
+      target: String(t.circ),
+      status: (d.tokens.minted - d.tokens.burned) >= t.circ ? 'ok' : 'warn',
+    },
+    {
+      kpi: 'SNT minted (checkpoints)',
+      level: 'Token',
+      value: String(d.tokens.minted),
+      delta: deltaHtml(d.tokens.minted, d.tokens.minted_prev),
+      target: String(t.minted),
+      status: d.tokens.minted >= t.minted ? 'ok' : d.tokens.minted >= t.minted * 0.7 ? 'warn' : 'bad',
+    },
+    {
+      kpi: 'SNT burned (canjes)',
+      level: 'Token',
+      value: String(d.tokens.burned),
+      delta: deltaHtml(d.tokens.burned, d.tokens.burned_prev),
+      target: String(t.burned),
+      status: d.tokens.burned >= t.burned ? 'ok' : d.tokens.burned > 0 ? 'warn' : (Number(days) === 7 ? 'ok' : 'bad'),
+    },
+  ];
+}
+
+function renderKpiTable(d, days) {
+  const rows = kpiRows(d, days);
+  el('kpiTable').innerHTML = `<table>
+    <thead>
+      <tr>
+        <th>KPI</th>
+        <th>Nivel</th>
+        <th class="num">Valor</th>
+        <th class="num">Δ vs anterior</th>
+        <th class="num">Meta</th>
+        <th>Estado</th>
+      </tr>
+    </thead>
+    <tbody>
+      ${rows.map((r) => `<tr>
+        <td><strong>${r.kpi}</strong></td>
+        <td>${r.level}</td>
+        <td class="num">${r.value}</td>
+        <td class="num">${r.delta}</td>
+        <td class="num">${r.target}</td>
+        <td>${statusBadge(r.status)}</td>
+      </tr>`).join('')}
+    </tbody>
+  </table>`;
+}
+
+function render(days) {
+  const d = DEMO[days] || DEMO[7];
+  const rate = d.sessions ? d.first_wins / d.sessions : 0;
+
+  el('nsm').textContent = String(d.bookings);
+  el('nsmDelta').textContent = `vs anterior: +${d.bookings - d.bookings_prev}`;
+  el('nsmGmv').textContent = 'GMV: ' + money(d.gmv);
+  el('nsmCom').textContent = 'Comisión: ' + money(d.commission);
+
+  const stages = [
+    { t: 'Acquisition', n: d.sessions, desc: `${d.with_utm} con UTM · ${d.ad_landings} ad landings` },
+    { t: 'Activation', n: d.first_wins, desc: `First-win rate ${pct(d.first_wins, d.sessions)}` },
+    { t: 'Retention', n: d.multi, desc: '≥2 acciones · meta 25% de wins' },
+    { t: 'Revenue', n: d.bookings, desc: `${d.cta_turitop} TuriTop · ${d.cta_whatsapp} WA` },
+    { t: 'Referral', n: d.csat_n, desc: `CSAT ${d.csat_avg}/5` },
+  ];
+  el('funnel').innerHTML = stages.map((x) =>
+    `<div class="stage"><div class="t">${x.t}</div><div class="n">${x.n}</div><div class="d">${x.desc}</div></div>`
+  ).join('');
+
+  el('alerts').innerHTML = [
+    rate >= 0.4
+      ? `<div class="alert ok">Activation ${Math.round(rate * 100)}% ≥ 40%. Embudo saludable para escalar alcance.</div>`
+      : `<div class="alert warn">Activation bajo el 40%. Revisar QR / CTA / first-win.</div>`,
+    `<div class="alert ok">CSAT ${d.csat_avg}/5 (${d.csat_n} respuestas). Listo para creativos con prueba social.</div>`,
+    d.tokens.burned === 0
+      ? `<div class="alert warn">SNT: ${d.tokens.minted} minted · 0 burned. Sin canjes hotel aún (burn rate 0%).</div>`
+      : `<div class="alert ok">SNT: ${d.tokens.minted} minted · ${d.tokens.burned} burned · burn rate ${Math.round((d.tokens.burned / d.tokens.minted) * 100)}%.</div>`,
+    `<div class="alert warn">Demo presentación: números fijos (sin base de datos).</div>`,
+  ].join('');
+
+  const types = Object.entries(d.by_type).map(([k, v]) => `${k}:${v}`).join(' · ');
+  el('heart').innerHTML = [
+    { h: 'Happiness', n: d.csat_avg, s: `${d.csat_n} CSAT` },
+    { h: 'Engagement', n: d.poi_visited, s: `${d.tour_starts} tours iniciados` },
+    { h: 'Adoption', n: d.first_wins, s: types },
+    { h: 'Retention', n: d.multi, s: 'sesiones con ≥2 acciones' },
+    { h: 'Task success', n: d.tour_starts, s: 'tour_start (proxy POI≥1)' },
+  ].map((c) => `<div class="card"><h3>${c.h}</h3><p class="n">${c.n}</p><p class="s">${c.s}</p></div>`).join('');
+
+  renderKpiTable(d, days);
+  renderCharts(d, days);
+
+  renderTable('campaigns', d.campaigns, [
+    { label: 'Campaña', fn: (r) => r.campaign },
+    { label: 'Sesiones', fn: (r) => r.sessions },
+    { label: 'First wins', fn: (r) => r.first_wins },
+    { label: 'Intents', fn: (r) => r.intents },
+  ]);
+  renderTable('tours', d.tours, [
+    { label: 'Tour', fn: (r) => r.tour_id },
+    { label: 'Starts', fn: (r) => r.starts },
+    { label: 'WA', fn: (r) => r.wa },
+    { label: 'POIs', fn: (r) => r.pois },
+  ]);
+  renderTable('salesTable', d.sales, [
+    { label: 'Fecha', fn: (r) => r.sold_at },
+    { label: 'Producto', fn: (r) => r.product_name },
+    { label: 'Canal', fn: (r) => r.channel },
+    { label: 'Monto', fn: (r) => money(r.amount_mxn) },
+    { label: 'Comisión', fn: (r) => money(r.amount_mxn * 0.1) },
+    { label: 'Campaña', fn: (r) => r.utm_campaign },
+  ]);
+
+  renderTokens(d);
+}
+
+function renderTokens(d) {
+  const t = d.tokens;
+  const circ = t.minted - t.burned;
+  const usd = (circ / 10).toFixed(2);
+  const burnRate = t.minted ? Math.round((t.burned / t.minted) * 100) : 0;
+
+  el('tokenCirc').textContent = circ.toLocaleString('es-MX') + ' SNT';
+  el('tokenUsd').textContent = 'Valor ≈ $' + usd + ' USD';
+  el('tokenNet').textContent = `Neto: +${(t.minted - t.burned).toLocaleString('es-MX')} SNT`;
+
+  el('tokenKpis').innerHTML = [
+    { h: 'Minted', n: t.minted, s: `${t.mints} completions` },
+    { h: 'Burned', n: t.burned, s: `${t.burns} canjes` },
+    { h: 'Wallets', n: t.wallets, s: `${t.holders_active} activos` },
+    { h: 'Burn rate', n: burnRate + '%', s: `avg reward ${t.avg_reward} SNT` },
+  ].map((c) => `<div class="card"><h3>${c.h}</h3><p class="n">${c.n}</p><p class="s">${c.s}</p></div>`).join('');
+
+  renderTable('tokenTx', t.txs, [
+    { label: 'Fecha', fn: (r) => r.date },
+    {
+      label: 'Tipo',
+      fn: (r) => `<span class="tag ${r.type}">${r.type}</span>`,
+    },
+    { label: 'Descripción', fn: (r) => r.description },
+    {
+      label: 'SNT',
+      fn: (r) => {
+        const sign = r.amount > 0 ? '+' : '';
+        const cls = r.amount > 0 ? 'delta-up' : 'delta-down';
+        return `<span class="${cls}">${sign}${r.amount}</span>`;
+      },
+    },
+    { label: 'Tx', fn: (r) => `<code style="font-size:11px">${r.tx.slice(0, 12)}…</code>` },
+  ]);
+
+  renderTable('rewardsCatalog', REWARDS_CATALOG, [
+    { label: 'Reward', fn: (r) => r.name },
+    { label: 'Costo SNT', fn: (r) => r.points_cost },
+    { label: '≈ USD', fn: (r) => '$' + (r.points_cost / 10).toFixed(2) },
+  ]);
+}
+
+el('days').onchange = () => render(el('days').value);
+render('7');
+</script>
+</body>
+</html>

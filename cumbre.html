@@ -70,6 +70,7 @@
  </div>
 </div>
 
+<script src="js/analytics.js"></script>
 <script>
 const WA="525652472730";
 const MENU=[
@@ -133,7 +134,13 @@ function enviar(){
  let msg=`🏔️ *Pedido Cafetería Cumbre*\nHabitación: ${room}\n\n`;
  items().forEach(x=>{msg+=`${x.qty}x ${x.name}${x.note?' ('+x.note+')':''} — ${money(x.qty*x.price)}\n`;});
  msg+=`\n*Total: ${money(total())} MXN*`;
+ if(window.AteneoAnalytics){
+  AteneoAnalytics.trackCtaWhatsapp({ win_type:'cumbre', room, total:total(), items:count() });
+  AteneoAnalytics.markFirstWin('cumbre', { total:total() });
+ }
  window.open('https://wa.me/'+WA+'?text='+encodeURIComponent(msg),'_blank');
 }
 render();
-</script></body></html>
+AteneoAnalytics.init({ page: 'cumbre' });
+</script>
+</body></html>

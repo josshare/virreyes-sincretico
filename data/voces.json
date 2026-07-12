@@ -591,7 +591,7 @@
       "subtitulo": "Roma, Condesa y el sonido de la ciudad",
       "anfitrion": "Alfonso Cuarón",
       "cita": "Quise que se sintiera el ruido de los coches sobre Reforma a las siete de la mañana.",
-      "accent": "#4A5568",
+      "accent": "#3D4F63",
       "cover": "assets/voces/roma.jpg",
       "precio": 50,
       "duracion_min": 150,
@@ -934,7 +934,14 @@
           "guion_es": "",
           "guion_en": "",
           "notif_titulo": "Llegaste a Mercado de Coyoacán",
-          "notif_cuerpo": "Colores y texturas"
+          "notif_cuerpo": "Colores y texturas",
+          "alerta": {
+            "titulo": "¡Reto en el Mercado!",
+            "cuerpo": "Compra una cerámica, mándanos una foto y te damos 10 tokens.",
+            "cta": "Enviar foto por WhatsApp",
+            "tokens": 10,
+            "wa_msg": "Hola · Voces de México\nEstoy en Mercado de Coyoacán.\nCumplí el reto: compré una cerámica.\nTe mando la foto para reclamar mis 10 tokens."
+          }
         },
         {
           "id": "s7",

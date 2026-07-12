@@ -1,0 +1,19 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 100" role="img" aria-label="Voces de Mexico">
+  <title>Voces de Mexico</title>
+  <!-- 7-dot voice wave -->
+  <g fill="#FFFBFA" aria-hidden="true">
+    <circle cx="88" cy="14" r="3.2"/>
+    <circle cx="112" cy="8" r="3.2"/>
+    <circle cx="136" cy="5" r="3.2"/>
+    <circle cx="160" cy="4" r="3.5"/>
+    <circle cx="184" cy="5" r="3.2"/>
+    <circle cx="208" cy="8" r="3.2"/>
+    <circle cx="232" cy="14" r="3.2"/>
+  </g>
+  <text x="160" y="58" text-anchor="middle" fill="#FFFBFA"
+        font-family="Arial Narrow, Arial Black, Helvetica, sans-serif"
+        font-weight="700" font-size="42" letter-spacing="0.08em">VOCES</text>
+  <text x="160" y="86" text-anchor="middle" fill="#FFFBFA"
+        font-family="Georgia, Times New Roman, serif"
+        font-style="italic" font-weight="500" font-size="20">de Mexico</text>
+</svg>

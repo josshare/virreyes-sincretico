@@ -4,76 +4,265 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Voces de México · Ateneo de Virreyes</title>
-<link href="https://fonts.googleapis.com/css2?family=Oswald:wght@500;600&family=Mulish:wght@400;500;700&display=swap" rel="stylesheet">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@600;700&family=Fraunces:ital,opsz,wght@0,9..144,500;1,9..144,400;1,9..144,600&family=Manrope:wght@400;500;700&display=swap" rel="stylesheet">
 <style>
- *{box-sizing:border-box}
- body{margin:0;font-family:'Mulish',system-ui,sans-serif;color:#2B2017;background:#e7ddc8;display:flex;justify-content:center;min-height:100vh}
- .phone{width:100%;max-width:420px;background:#F4ECDD;min-height:100vh;padding-bottom:28px;position:relative}
- .disp{font-family:'Oswald',sans-serif;font-weight:600;letter-spacing:.02em;text-transform:uppercase}
- header{background:#2B2017;color:#F4ECDD;padding:14px 16px 16px;text-align:center;border-bottom:3px solid #C9A227}
- .back{display:inline-block;color:#cdbf9c;font-size:12px;text-decoration:none;margin-bottom:6px;background:none;border:none;cursor:pointer;font-family:inherit}
- header .lg{font-size:22px;color:#C9A227;margin:0}
- header .sub{font-size:11px;color:#bcd3c0;letter-spacing:.12em;margin-top:4px}
- .hero{width:100%;height:160px;object-fit:cover;display:block;border-bottom:2px solid #C9A227}
- .intro{padding:14px 16px 6px}
- .intro p{font-size:13px;color:#5a4a30;line-height:1.5;margin:0}
- .list{padding:8px 14px 0;display:flex;flex-direction:column;gap:10px}
- .card{display:flex;gap:12px;background:#fff;border:1px solid #e2d5bf;border-radius:14px;overflow:hidden;text-decoration:none;color:inherit;cursor:pointer}
- .card img{width:92px;min-height:96px;object-fit:cover;flex-shrink:0}
- .card .bd{padding:10px 10px 10px 0;display:flex;flex-direction:column;justify-content:center;gap:3px}
- .card .t{font-size:14px;font-weight:700;line-height:1.25}
- .card .a{font-size:11px;color:#2F8F96;font-weight:700}
- .card .p{font-size:12px;color:#7a6a52}
- .detail-hero{position:relative}
- .detail-hero img{width:100%;height:200px;object-fit:cover;display:block}
- .detail-hero .bar{position:absolute;left:0;right:0;bottom:0;padding:14px 16px;background:linear-gradient(transparent,rgba(20,10,0,.85));color:#fff}
- .detail-hero .bar .t{font-size:18px;margin:0}
- .detail-hero .bar .a{font-size:12px;opacity:.92;margin-top:2px}
- .quote{margin:14px 16px;padding:12px 14px;background:#fff;border-left:3px solid var(--accent,#B5472D);border-radius:0 10px 10px 0;font-size:13px;line-height:1.5;color:#3a2c14;font-style:italic}
- .sec-h{padding:8px 16px 4px;display:flex;justify-content:space-between;align-items:baseline;gap:8px}
- .stops{padding:4px 16px 0}
- .stop{display:flex;gap:12px;padding:10px 0;border-bottom:1px dashed #e2d5bf;cursor:pointer;align-items:flex-start}
- .stop.here{background:rgba(47,143,150,.08);margin:0 -8px;padding:10px 8px;border-radius:10px}
- .stop.done .num{background:#2F8F96}
- .num{width:28px;height:28px;border-radius:50%;background:var(--accent,#B5472D);color:#fff;display:flex;align-items:center;justify-content:center;font-size:12px;font-weight:700;flex-shrink:0}
- .stop .nm{font-size:14px;font-weight:700}
- .stop .sb{font-size:11px;color:#7a6a52;margin-top:2px}
- .stop .meta{font-size:10px;color:#2F8F96;margin-top:3px;font-weight:700}
- .cta{display:block;margin:16px 16px 8px;background:#25D366;color:#fff;text-align:center;text-decoration:none;font-weight:700;padding:14px;border-radius:12px;font-size:15px;border:none;width:calc(100% - 32px);cursor:pointer;font-family:inherit}
- .cta.tour{background:#B5472D}
- .cta.stop{background:#2B2017}
- .ghost{display:block;margin:0 16px 8px;background:#fff;color:#2F8F96;border:1px solid #2F8F96;text-align:center;text-decoration:none;font-weight:700;padding:11px;border-radius:10px;font-size:14px;cursor:pointer;font-family:inherit;width:calc(100% - 32px)}
- .note{font-size:11px;color:#7a5e22;text-align:center;margin:10px 16px 0}
- .price{font-size:15px;font-weight:700;color:#B5472D}
- .banner{position:sticky;top:0;z-index:20;background:#2F8F96;color:#fff;padding:10px 14px;font-size:13px;font-weight:700;display:none}
- .banner.show{display:block}
- .panel{margin:12px 16px;background:#fff;border:1px solid #e2d5bf;border-radius:12px;padding:12px 14px}
- .panel h3{margin:0 0 6px;font-size:15px;color:#B5472D}
- .panel p{margin:0 0 8px;font-size:13px;line-height:1.45;color:#3a2c14}
- .panel .label{font-size:11px;font-weight:700;color:#7a6a52;text-transform:uppercase;letter-spacing:.04em;margin-top:8px}
- .chip{display:inline-block;background:#F4ECDD;border:1px solid #e2d5bf;border-radius:8px;padding:4px 8px;font-size:11px;margin:2px 4px 2px 0;text-decoration:none;color:#2F8F96;font-weight:700}
- .status{font-size:12px;color:#7a6a52;padding:0 16px;min-height:18px}
- .toast{position:fixed;left:50%;transform:translateX(-50%);bottom:24px;max-width:380px;width:90%;background:#2B2017;color:#F4ECDD;padding:12px 14px;border-radius:12px;z-index:40;display:none;box-shadow:0 8px 24px rgba(0,0,0,.25)}
- .toast.show{display:block}
- .toast b{color:#C9A227}
+:root{
+  /* Piedra fría + rosa mexicano — sin crema hotelera */
+  --ink:#14131A;
+  --surface:#E9E7EC;
+  --canvas:#D9D6DD;
+  --paper:#F7F6F9;
+  --rosa:#E4007C;
+  --rosa-deep:#B0005F;
+  --live:#0E5C5F;
+  --muted:#5A5560;
+  --line:#CFCBD4;
+  --accent:var(--rosa);
+  --wa:#25D366;
+}
+*{box-sizing:border-box}
+body{
+  margin:0;
+  font-family:Manrope,system-ui,sans-serif;
+  color:var(--ink);
+  background:var(--canvas);
+  display:flex;justify-content:center;min-height:100vh;
+}
+.phone{
+  width:100%;max-width:420px;background:var(--surface);
+  min-height:100vh;padding-bottom:28px;position:relative;overflow-x:hidden;
+}
+.disp{font-family:'Barlow Condensed',sans-serif;font-weight:700;letter-spacing:.04em;text-transform:uppercase}
+.voice{font-family:Fraunces,Georgia,serif;font-style:italic;font-weight:400}
+
+header{
+  background:var(--ink);color:var(--paper);
+  padding:14px 16px 16px;text-align:center;
+  border-bottom:3px solid var(--rosa);
+}
+.back{
+  display:inline-block;color:rgba(255,251,250,.65);font-size:12px;
+  text-decoration:none;margin-bottom:6px;background:none;border:none;
+  cursor:pointer;font-family:inherit;
+}
+.back:hover{color:var(--rosa)}
+header .lg{font-size:22px;color:var(--rosa);margin:0}
+header .sub{font-size:11px;color:rgba(255,251,250,.7);letter-spacing:.12em;margin-top:4px}
+
+/* Catalog hero */
+.hero-wrap{
+  position:relative;min-height:min(52vh,320px);height:52vh;max-height:360px;
+  overflow:hidden;background:var(--ink);
+}
+.hero-wrap img{
+  width:100%;height:100%;object-fit:cover;display:block;
+  transform:scale(1.06);animation:heroIn 1.4s ease forwards;
+}
+@keyframes heroIn{to{transform:scale(1)}}
+.hero-wrap .veil{
+  position:absolute;inset:0;
+  background:linear-gradient(180deg,rgba(20,19,26,.25) 0%,rgba(20,19,26,.88) 100%);
+  display:flex;flex-direction:column;justify-content:flex-end;align-items:center;
+  padding:28px 20px 24px;text-align:center;
+}
+.hero-wrap .brand-logo{width:min(240px,78%);height:auto;aspect-ratio:320/100;margin-bottom:12px;display:block;object-fit:contain}
+.hero-wrap .tag{
+  color:var(--paper);font-size:15px;line-height:1.4;margin:0;max-width:20em;
+  animation:fadeUp .7s .2s ease both;
+}
+@keyframes fadeUp{from{opacity:0;transform:translateY(12px)}to{opacity:1;transform:none}}
+
+.intro{padding:16px 16px 4px}
+.intro p{font-size:13px;color:var(--muted);line-height:1.5;margin:0}
+
+.list{padding:8px 14px 0;display:flex;flex-direction:column;gap:12px}
+.card{
+  display:flex;gap:0;background:var(--paper);border:1px solid var(--line);
+  overflow:hidden;text-decoration:none;color:inherit;cursor:pointer;
+  opacity:0;transform:translateY(14px);animation:fadeUp .55s ease forwards;
+}
+.card:nth-child(1){animation-delay:.05s}
+.card:nth-child(2){animation-delay:.1s}
+.card:nth-child(3){animation-delay:.15s}
+.card:nth-child(4){animation-delay:.2s}
+.card:nth-child(5){animation-delay:.25s}
+.card:nth-child(6){animation-delay:.3s}
+.card:nth-child(7){animation-delay:.35s}
+.card img{width:100px;min-height:108px;object-fit:cover;flex-shrink:0}
+.card .bd{padding:12px 12px 12px 14px;display:flex;flex-direction:column;justify-content:center;gap:4px;flex:1;min-width:0}
+.card .t{font-size:15px;line-height:1.15;margin:0}
+.card .a{font-size:12px;font-weight:700;color:var(--card-accent,var(--rosa))}
+.card .p{font-size:12px;color:var(--muted)}
+
+.detail-hero{position:relative;background:var(--ink)}
+.detail-hero img{width:100%;height:220px;object-fit:cover;display:block;opacity:.92}
+.detail-hero .bar{
+  position:absolute;left:0;right:0;bottom:0;padding:20px 16px 16px;
+  background:linear-gradient(transparent,rgba(20,19,26,.92));color:var(--paper);
+}
+.detail-hero .bar .t{font-size:22px;margin:0;line-height:1.1}
+.detail-hero .bar .a{font-size:13px;margin-top:4px;color:var(--accent);font-weight:700}
+
+.quote{
+  margin:16px 16px 0;padding:14px 16px;
+  background:var(--paper);border-left:3px solid var(--accent);
+  font-size:15px;line-height:1.45;color:var(--ink);
+}
+
+.sec-h{padding:16px 16px 4px;display:flex;justify-content:space-between;align-items:baseline;gap:8px}
+.sec-h .disp{font-size:18px;color:var(--ink)}
+.stops{padding:4px 16px 0}
+.stop{
+  display:flex;gap:12px;padding:12px 0;border-bottom:1px dashed var(--line);
+  cursor:pointer;align-items:flex-start;
+}
+.stop.here{background:rgba(14,92,95,.12);margin:0 -8px;padding:12px 8px;border-radius:6px}
+.stop.done .num{background:var(--live)}
+.num{
+  width:28px;height:28px;border-radius:50%;background:var(--accent);color:#fff;
+  display:flex;align-items:center;justify-content:center;font-size:12px;font-weight:700;flex-shrink:0;
+}
+.stop .nm{font-size:14px;font-weight:700}
+.stop .sb{font-size:11px;color:var(--muted);margin-top:2px}
+.stop .meta{font-size:10px;color:var(--live);margin-top:3px;font-weight:700}
+
+.cta{
+  display:block;margin:16px 16px 8px;background:var(--wa);color:#fff;
+  text-align:center;text-decoration:none;font-weight:700;padding:14px;
+  border-radius:4px;font-size:15px;border:none;width:calc(100% - 32px);
+  cursor:pointer;font-family:inherit;
+}
+.cta.tour{background:var(--ink)}
+.cta.tour:hover{background:#1c1b24}
+.cta.primary{background:var(--rosa)}
+.cta.primary:hover{background:var(--rosa-deep)}
+.cta.stop{background:var(--ink)}
+.ghost{
+  display:block;margin:0 16px 8px;background:transparent;color:var(--ink);
+  border:1px solid var(--ink);text-align:center;text-decoration:none;font-weight:700;
+  padding:11px;border-radius:4px;font-size:14px;cursor:pointer;font-family:inherit;
+  width:calc(100% - 32px);
+}
+.ghost:hover{border-color:var(--rosa);color:var(--rosa)}
+.note{font-size:11px;color:var(--muted);text-align:center;margin:12px 16px 0}
+.note a{color:var(--rosa);font-weight:700;text-decoration:none}
+.price{font-size:15px;font-weight:700;color:var(--rosa)}
+
+.banner{
+  position:sticky;top:0;z-index:20;background:var(--live);color:#fff;
+  padding:10px 14px;font-size:13px;font-weight:700;display:none;
+}
+.banner.show{display:block}
+
+.panel{
+  margin:12px 16px;background:var(--paper);border:1px solid var(--line);
+  border-radius:4px;padding:12px 14px;
+}
+.panel h3{margin:0 0 6px;font-size:16px;color:var(--accent)}
+.panel p{margin:0 0 8px;font-size:13px;line-height:1.45;color:var(--ink)}
+.panel .label{
+  font-size:11px;font-weight:700;color:var(--muted);
+  text-transform:uppercase;letter-spacing:.06em;margin-top:8px;
+}
+.chip{
+  display:inline-block;background:var(--surface);border:1px solid var(--line);
+  border-radius:4px;padding:4px 8px;font-size:11px;margin:2px 4px 2px 0;
+  text-decoration:none;color:var(--live);font-weight:700;
+}
+.status{font-size:12px;color:var(--muted);padding:0 16px;min-height:18px}
+
+.toast{
+  position:fixed;left:50%;bottom:24px;max-width:380px;width:90%;
+  background:var(--ink);color:var(--paper);padding:12px 14px;border-radius:8px;
+  z-index:40;display:none;box-shadow:0 12px 32px rgba(0,0,0,.28);
+  transform:translateX(-50%) translateY(12px);opacity:0;
+  transition:opacity .25s ease,transform .25s ease;
+}
+.toast.show{display:block;opacity:1;transform:translateX(-50%) translateY(0)}
+.toast b{color:var(--rosa)}
+
+.alerta-ov{
+  position:fixed;inset:0;z-index:50;display:none;
+  align-items:flex-end;justify-content:center;
+  background:rgba(20,19,26,.55);
+  padding:0;opacity:0;transition:opacity .22s ease;
+}
+.alerta-ov.show{display:flex;opacity:1}
+.alerta-sheet{
+  width:100%;max-width:420px;background:var(--paper);
+  border-radius:16px 16px 0 0;padding:20px 18px 28px;
+  transform:translateY(24px);transition:transform .28s cubic-bezier(.22,1,.36,1);
+  box-shadow:0 -8px 40px rgba(0,0,0,.22);
+}
+.alerta-ov.show .alerta-sheet{transform:translateY(0)}
+.alerta-sheet .pulse{
+  width:10px;height:10px;border-radius:50%;background:var(--rosa);
+  display:inline-block;margin-right:8px;
+  box-shadow:0 0 0 0 rgba(228,0,124,.55);
+  animation:alertaPulse 1.6s ease infinite;
+}
+@keyframes alertaPulse{
+  0%{box-shadow:0 0 0 0 rgba(228,0,124,.45)}
+  70%{box-shadow:0 0 0 12px rgba(228,0,124,0)}
+  100%{box-shadow:0 0 0 0 rgba(228,0,124,0)}
+}
+.alerta-sheet .eyebrow{
+  font-size:11px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;
+  color:var(--rosa);margin:0 0 10px;display:flex;align-items:center;
+}
+.alerta-sheet h3{
+  font-family:'Barlow Condensed',sans-serif;font-weight:700;text-transform:uppercase;
+  letter-spacing:.03em;font-size:22px;margin:0 0 8px;line-height:1.15;color:var(--ink);
+}
+.alerta-sheet p{margin:0 0 14px;font-size:15px;line-height:1.45;color:var(--muted)}
+.alerta-sheet .tokens{
+  display:inline-block;background:var(--ink);color:var(--paper);
+  font-family:'Barlow Condensed',sans-serif;font-weight:700;letter-spacing:.06em;
+  font-size:15px;padding:6px 12px;margin-bottom:16px;
+}
+.alerta-sheet .tokens span{color:var(--rosa)}
+.alerta-sheet .actions{display:flex;flex-direction:column;gap:8px}
+.alerta-sheet .actions .cta{margin:0;width:100%}
+.alerta-sheet .actions .ghost{margin:0;width:100%}
+
+.loading{padding:48px 24px;text-align:center;color:var(--muted)}
 </style>
 </head>
 <body>
 <div class="phone" id="app">
-  <div style="padding:40px;text-align:center;color:#7a6a52">Cargando…</div>
+  <div class="loading">Cargando…</div>
 </div>
 <div class="toast" id="toast"></div>
+<div class="alerta-ov" id="alertaOv" role="dialog" aria-modal="true" aria-labelledby="alertaTitle" hidden>
+  <div class="alerta-sheet">
+    <div class="eyebrow"><span class="pulse" aria-hidden="true"></span>Alerta en vivo</div>
+    <h3 id="alertaTitle"></h3>
+    <p id="alertaBody"></p>
+    <div class="tokens" id="alertaTokens" hidden>+<span id="alertaTokensN">10</span> TOKENS</div>
+    <div class="actions">
+      <button type="button" class="cta" id="alertaCta">Enviar foto por WhatsApp</button>
+      <button type="button" class="ghost" id="alertaClose">Cerrar</button>
+    </div>
+  </div>
+</div>
+<script src="js/analytics.js"></script>
 <script src="js/tour-mode.js"></script>
 <script>
+AteneoAnalytics.init({ page: 'voces' });
+
 const WA="525549305703";
 const money=n=>n==null?'':'$'+Number(n).toLocaleString('es-MX');
 const params=new URLSearchParams(location.search);
 const app=document.getElementById('app');
 const toastEl=document.getElementById('toast');
+const alertaOv=document.getElementById('alertaOv');
 let DATA=null;
 let tourCtrl=null;
 let currentTour=null;
 let uiState={view:'catalog', tourId:null, stopId:null};
+let alertaParada=null;
 
 function setUrl(){
   const q=new URLSearchParams();
@@ -91,8 +280,47 @@ function showToast(title, body){
   showToast._t=setTimeout(()=>toastEl.classList.remove('show'), 4500);
 }
 
+function closeAlerta(){
+  alertaOv.classList.remove('show');
+  alertaOv.hidden=true;
+  alertaParada=null;
+}
+
+function showAlerta(parada){
+  const a=parada&&parada.alerta;
+  if(!a) return false;
+  alertaParada=parada;
+  document.getElementById('alertaTitle').textContent=a.titulo||`Alerta · ${parada.nombre}`;
+  document.getElementById('alertaBody').textContent=a.cuerpo||'';
+  const tok=document.getElementById('alertaTokens');
+  const tokN=document.getElementById('alertaTokensN');
+  if(a.tokens){
+    tokN.textContent=a.tokens;
+    tok.hidden=false;
+  }else{
+    tok.hidden=true;
+  }
+  const cta=document.getElementById('alertaCta');
+  cta.textContent=a.cta||'Continuar';
+  alertaOv.hidden=false;
+  requestAnimationFrame(()=>alertaOv.classList.add('show'));
+  if(window.AteneoAnalytics){
+    AteneoAnalytics.track('poi_alerta',{tour_id:currentTour&&currentTour.id, stop_id:parada.id, tokens:a.tokens||0});
+  }
+  return true;
+}
+
+alertaOv.addEventListener('click',(e)=>{ if(e.target===alertaOv) closeAlerta(); });
+document.getElementById('alertaClose').onclick=()=>closeAlerta();
+document.getElementById('alertaCta').onclick=()=>{
+  const a=alertaParada&&alertaParada.alerta;
+  const msg=(a&&a.wa_msg)||`Hola · Voces de México\nCumplí el reto en ${alertaParada?alertaParada.nombre:''}.`;
+  window.open('https://wa.me/'+WA+'?text='+encodeURIComponent(msg),'_blank');
+  closeAlerta();
+};
+
 function waMsg(r){
-  return `🎙️ *Voces de México*\nRecorrido: ${r.titulo}\nAnfitrión: ${r.anfitrion}\nParadas: ${r.paradas.length}\nPVP ref.: ${money(r.precio)}\n\nQuiero reservar / más información desde Ateneo de Virreyes.`;
+  return `*Voces de México*\nRecorrido: ${r.titulo}\nAnfitrión: ${r.anfitrion}\nParadas: ${r.paradas.length}\nPVP ref.: ${money(r.precio)}\n\nQuiero reservar / más información desde Ateneo de Virreyes.`;
 }
 
 function findTour(id){return DATA.recorridos.find(x=>x.id===id);}
@@ -101,12 +329,13 @@ function findStop(r,id){return r.paradas.find(x=>x.id===id);}
 function renderCatalog(){
   uiState={view:'catalog', tourId:null, stopId:null};
   if(tourCtrl){tourCtrl.stop();tourCtrl=null;currentTour=null;}
+  document.documentElement.style.setProperty('--accent', '#E4007C');
   setUrl();
   const cards=DATA.recorridos.map(r=>`
-    <a class="card" href="?r=${encodeURIComponent(r.id)}">
+    <a class="card" href="?r=${encodeURIComponent(r.id)}" style="--card-accent:${r.accent||'#E4007C'}">
       <img src="${r.cover}" alt="">
       <div class="bd">
-        <div class="t">${r.titulo}</div>
+        <div class="disp t">${r.titulo}</div>
         <div class="a">${r.anfitrion}</div>
         <div class="p">${r.paradas.length} paradas · ${r.duracion_min||150} min · ${money(r.precio)}</div>
       </div>
@@ -117,22 +346,29 @@ function renderCatalog(){
       <div class="disp lg">Voces de México</div>
       <div class="sub">7 RECORRIDOS · 7 PROTAGONISTAS</div>
     </header>
-    <img class="hero" src="${DATA.hero}" alt="Voces de México">
-    <div class="intro"><p>${DATA.tagline}</p></div>
+    <div class="hero-wrap">
+      <img src="${DATA.hero}" alt="">
+      <div class="veil">
+        <img class="brand-logo" src="assets/voces/logo-voces-neg.svg?v=2" alt="Voces de México" width="240" height="75">
+        <p class="voice tag">${DATA.tagline}</p>
+      </div>
+    </div>
     <div class="list">${cards}</div>
-    <div class="note">${DATA.fuente||''}</div>`;
+    <div class="note">${DATA.fuente||''} · <a href="voces-identidad.html">Identidad</a></div>`;
 }
 
 function stopRow(p, progress, hereId){
   const done=progress&&progress.visited&&progress.visited[p.id];
   const here=hereId===p.id;
   const cls=['stop', done?'done':'', here?'here':''].filter(Boolean).join(' ');
+  const reto=p.alerta?`<div class="meta" style="color:var(--rosa)">Reto · +${p.alerta.tokens||0} tokens</div>`:'';
   return `<div class="${cls}" data-stop="${p.id}">
     <div class="num">${done?'✓':p.orden}</div>
     <div>
       <div class="nm">${p.nombre}</div>
       ${p.subtitulo?`<div class="sb">${p.subtitulo}</div>`:''}
       <div class="meta">${p.hora||''}${here?' · Estás aquí':done?' · Visitado':''}</div>
+      ${reto}
     </div>
   </div>`;
 }
@@ -141,7 +377,7 @@ function renderDetail(r, opts={}){
   uiState={view: opts.tourMode?'tour':'detail', tourId:r.id, stopId:null};
   currentTour=r;
   setUrl();
-  document.documentElement.style.setProperty('--accent', r.accent||'#B5472D');
+  document.documentElement.style.setProperty('--accent', r.accent||'#E4007C');
   const progress=VocesTourMode.loadProgress(r.id);
   const hereId=opts.hereId||null;
   const stops=r.paradas.map(p=>stopRow(p, progress, hereId)).join('');
@@ -160,14 +396,14 @@ function renderDetail(r, opts={}){
         <div class="a">Anfitrión: ${r.anfitrion}</div>
       </div>
     </div>
-    <div class="quote">“${r.cita}”</div>
+    <div class="quote voice">«${r.cita}»</div>
     <div class="panel">
       <div class="label">Duración · PVP</div>
       <p style="margin:4px 0 0">${r.duracion_min||150} min · ${money(r.precio)} · ${r.paradas.length} puntos</p>
       ${r.maps_ruta_url?`<a class="chip" href="${r.maps_ruta_url}" target="_blank" rel="noopener">Abrir ruta en Maps</a>`:''}
     </div>
     <div class="sec-h">
-      <div class="disp" style="font-size:16px;color:#B5472D">Itinerario</div>
+      <div class="disp">Itinerario</div>
       <span class="price">${money(r.precio)}</span>
     </div>
     <div class="status" id="geoStatus">${tourActive?'Buscando tu ubicación…':'Toca una parada o inicia el modo recorrido.'}</div>
@@ -201,8 +437,11 @@ function renderStop(r, stopId){
   if(!p){renderDetail(r);return;}
   uiState={view:'stop', tourId:r.id, stopId:p.id};
   setUrl();
-  document.documentElement.style.setProperty('--accent', r.accent||'#B5472D');
+  document.documentElement.style.setProperty('--accent', r.accent||'#E4007C');
   const links=(p.links||[]).map(l=>`<a class="chip" href="${l.url}" target="_blank" rel="noopener">${l.label}</a>`).join('');
+  const alertaBtn=p.alerta
+    ?`<button class="cta primary" id="btnAlerta" type="button">Ver alerta · +${p.alerta.tokens||0} tokens</button>`
+    :'';
   app.innerHTML=`
     <header>
       <button type="button" class="back" id="backDet">← ${r.titulo.split(':')[0]}</button>
@@ -216,28 +455,34 @@ function renderStop(r, stopId){
       <p>${p.tip||'—'}</p>
       <div class="label">Horario / acceso</div>
       <p>${p.horario||'—'}</p>
-      ${p.guion_es?`<div class="label">Guion · ${r.anfitrion}</div><p style="font-style:italic">“${p.guion_es}”</p>`:''}
-      ${p.guion_en?`<div class="label">Script (EN)</div><p style="font-style:italic;opacity:.85">“${p.guion_en}”</p>`:''}
+      ${p.guion_es?`<div class="label">Guion · ${r.anfitrion}</div><p class="voice">«${p.guion_es}»</p>`:''}
+      ${p.guion_en?`<div class="label">Script (EN)</div><p class="voice" style="opacity:.85">«${p.guion_en}»</p>`:''}
       <div style="margin-top:10px">
         <a class="chip" href="${p.maps_url}" target="_blank" rel="noopener">Abrir en Maps</a>
         ${links}
       </div>
     </div>
+    ${alertaBtn}
     <button class="cta tour" id="btnStartHere">Iniciar recorrido desde aquí</button>
     <button class="ghost" id="backDet2" type="button">Volver al itinerario</button>`;
   document.getElementById('backDet').onclick=()=>renderDetail(r, {tourMode:!!(tourCtrl&&tourCtrl.isActive())});
   document.getElementById('backDet2').onclick=()=>renderDetail(r, {tourMode:!!(tourCtrl&&tourCtrl.isActive())});
   document.getElementById('btnStartHere').onclick=()=>startTour(r);
+  const btnAlerta=document.getElementById('btnAlerta');
+  if(btnAlerta) btnAlerta.onclick=()=>showAlerta(p);
+  if(p.alerta) setTimeout(()=>showAlerta(p), 180);
 }
 
 async function startTour(r){
   try{
     if(tourCtrl) tourCtrl.stop();
+    if(window.AteneoAnalytics){AteneoAnalytics.track('tour_start',{tour_id:r.id});AteneoAnalytics.markFirstWin('voces',{tour_id:r.id});}
     tourCtrl=VocesTourMode.createTourMode({
       recorrido:r,
       onEnter:(parada, n)=>{
         showToast(n.title, n.body);
         renderDetail(r, {tourMode:true, hereId:parada.id, banner:`Estás en: ${parada.nombre}`});
+        if(parada.alerta) setTimeout(()=>showAlerta(parada), 350);
       },
       onUpdate:({here, nearest})=>{
         const st=document.getElementById('geoStatus');
@@ -282,7 +527,7 @@ fetch('data/voces.json')
     renderCatalog();
   })
   .catch(()=>{
-    app.innerHTML='<div style="padding:40px;text-align:center;color:#B5472D">No se pudo cargar Voces de México.</div>';
+    app.innerHTML='<div class="loading" style="color:var(--rosa)">No se pudo cargar Voces de México.</div>';
   });
 </script>
 </body>

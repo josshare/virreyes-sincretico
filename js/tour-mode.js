@@ -79,6 +79,14 @@
             markVisited(p.id);
             saveProgress(recorrido.id, progress);
             const n = notify(p);
+            if (global.AteneoAnalytics && typeof global.AteneoAnalytics.track === "function") {
+              global.AteneoAnalytics.track("poi_visited", {
+                tour_id: recorrido.id,
+                stop_id: p.id,
+                stop_name: p.nombre,
+                dist_m: Math.round(d),
+              });
+            }
             if (typeof onEnter === "function") onEnter(p, n, d);
           } else {
             markVisited(p.id);

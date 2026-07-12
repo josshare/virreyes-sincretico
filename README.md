@@ -11,8 +11,17 @@ Clon del frontend de [virreyes-sincretico.netlify.app](https://virreyes-sincreti
 | `ateneo.html` | Reserva de espacios por WhatsApp / correo |
 | `cumbre.html` | Menú room service de Cumbre Café |
 | `voces.html` | Catálogo, detalle de paradas y **Modo recorrido** (GPS) |
+| `ceo-dashboard.html` | Tablero CEO: North Star, embudo AARRR, HEART, carga de ventas |
 
-Datos: `data/voces.json`. Covers: `assets/voces/`. Lógica GPS: `js/tour-mode.js`.
+Datos: `data/voces.json`. Covers: `assets/voces/`. Lógica GPS: `js/tour-mode.js`. Analytics: `js/analytics.js`.
+
+## KPIs y analytics (lanzamiento)
+
+- Tablero demo (datos hardcodeados, sin BD): [`ceo-dashboard.html`](ceo-dashboard.html)
+- Brief de campaña: [`docs/campana-lanzamiento.md`](docs/campana-lanzamiento.md)
+- `js/analytics.js` solo registra eventos en consola/session (modo presentación)
+
+> La migración SQL en `supabase/migrations/` queda como referencia futura; no es necesaria para la demo.
 
 ## Voces de México
 

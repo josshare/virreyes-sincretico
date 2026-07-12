@@ -1,0 +1,294 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Identidad ù Voces de Mùxico</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@600;700&family=Fraunces:ital,opsz,wght@0,9..144,500;1,9..144,400;1,9..144,600&family=Manrope:wght@400;500;700&display=swap" rel="stylesheet">
+<style>
+:root{
+  /* Piedra frùa + rosa mexicano ù sin crema hotelera */
+  --ink:#14131A;
+  --surface:#E9E7EC;
+  --canvas:#D9D6DD;
+  --paper:#F7F6F9;
+  --rosa:#E4007C;
+  --rosa-deep:#B0005F;
+  --live:#0E5C5F;
+  --muted:#5A5560;
+  --line:#CFCBD4;
+  --accent:var(--rosa);
+}
+*{box-sizing:border-box}
+body{
+  margin:0;
+  font-family:Manrope,system-ui,sans-serif;
+  color:var(--ink);
+  background:var(--canvas);
+  line-height:1.5;
+}
+.disp{font-family:'Barlow Condensed',sans-serif;font-weight:700;letter-spacing:.04em;text-transform:uppercase}
+.voice{font-family:Fraunces,Georgia,serif;font-style:italic;font-weight:400}
+.wrap{max-width:720px;margin:0 auto;background:var(--surface);min-height:100vh}
+.nav{
+  display:flex;align-items:center;justify-content:space-between;gap:12px;
+  padding:14px 20px;background:var(--ink);color:var(--paper);
+  position:sticky;top:0;z-index:10;
+}
+.nav a{color:var(--paper);text-decoration:none;font-size:13px;font-weight:500;opacity:.85}
+.nav a:hover{opacity:1;color:var(--rosa)}
+.nav .brand{font-size:15px;color:var(--rosa);margin:0}
+section{padding:36px 24px;border-bottom:1px solid var(--line)}
+section:last-child{border-bottom:none}
+.sec-label{font-size:11px;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:var(--rosa);margin:0 0 8px}
+h2.disp{font-size:28px;margin:0 0 12px;line-height:1.1}
+.lead{font-size:17px;color:var(--muted);margin:0;max-width:34em}
+.lead.voice{color:var(--ink);font-size:20px;line-height:1.45}
+
+/* Cover */
+.cover{
+  min-height:72vh;display:flex;flex-direction:column;justify-content:flex-end;
+  padding:48px 24px 40px;position:relative;overflow:hidden;
+  background:
+    linear-gradient(180deg,rgba(20,19,26,.35) 0%,rgba(20,19,26,.92) 100%),
+    radial-gradient(ellipse at 30% 20%,rgba(228,0,124,.35),transparent 55%),
+    var(--ink);
+  color:var(--paper);
+}
+.cover img.logo{width:min(280px,78vw);height:auto;margin-bottom:20px;animation:rise .8s ease both}
+.cover .concept{font-size:22px;margin:0 0 10px;animation:rise .8s .12s ease both}
+.cover .sub{font-size:14px;opacity:.75;margin:0;animation:rise .8s .22s ease both}
+@keyframes rise{from{opacity:0;transform:translateY(16px)}to{opacity:1;transform:none}}
+
+/* Logo board */
+.logo-grid{display:grid;gap:14px}
+@media(min-width:560px){.logo-grid{grid-template-columns:1fr 1fr}}
+.logo-tile{
+  border:1px solid var(--line);border-radius:4px;padding:28px 16px;
+  display:flex;align-items:center;justify-content:center;min-height:140px;
+}
+.logo-tile img{width:85%;max-width:260px;height:auto}
+.logo-tile.light{background:var(--paper)}
+.logo-tile.dark{background:var(--ink)}
+.logo-tile.rosa{background:var(--rosa)}
+.logo-tile .cap{position:absolute;/* unused */}
+.logo-cap{font-size:11px;color:var(--muted);margin:6px 0 0;font-weight:500}
+
+/* Type */
+.type-block{margin:20px 0}
+.type-block .sample{margin:0 0 4px}
+.type-block .meta{font-size:12px;color:var(--muted);margin:0}
+.type-display{font-size:clamp(36px,10vw,56px);line-height:1;margin:0}
+.type-voice{font-size:clamp(20px,5vw,28px);line-height:1.35;margin:0;color:var(--ink)}
+.type-ui{font-size:16px;margin:0}
+
+/* Palette */
+.swatches{display:grid;grid-template-columns:repeat(auto-fill,minmax(140px,1fr));gap:12px;margin-top:16px}
+.swatch{border:1px solid var(--line);border-radius:4px;overflow:hidden;background:var(--paper)}
+.swatch .chip{height:72px}
+.swatch .info{padding:10px 12px}
+.swatch .name{font-size:13px;font-weight:700;margin:0}
+.swatch .hex{font-size:12px;color:var(--muted);margin:2px 0 0;font-family:ui-monospace,monospace}
+.swatch .role{font-size:11px;color:var(--muted);margin:4px 0 0}
+
+.tour-swatches{display:grid;grid-template-columns:repeat(auto-fill,minmax(150px,1fr));gap:10px;margin-top:14px}
+.tour-swatch{border-radius:4px;padding:14px;color:#fff;min-height:88px;display:flex;flex-direction:column;justify-content:flex-end}
+.tour-swatch .t{font-size:14px;margin:0;line-height:1.15}
+.tour-swatch .a{font-size:11px;opacity:.9;margin:4px 0 0}
+.tour-swatch .h{font-size:10px;opacity:.7;margin-top:6px;font-family:ui-monospace,monospace}
+
+/* UI demos */
+.ui-stack{display:flex;flex-direction:column;gap:14px;margin-top:16px;max-width:380px}
+.demo-phone{background:var(--surface);border:1px solid var(--line);border-radius:8px;overflow:hidden}
+.demo-header{background:var(--ink);color:var(--paper);padding:12px 14px;text-align:center;border-bottom:3px solid var(--rosa)}
+.demo-header .lg{font-size:18px;color:var(--rosa);margin:0}
+.demo-header .sub{font-size:10px;letter-spacing:.12em;opacity:.7;margin-top:4px}
+.demo-banner{background:var(--live);color:#fff;padding:8px 12px;font-size:12px;font-weight:700}
+.demo-card{display:flex;gap:10px;background:var(--paper);border:1px solid var(--line);margin:12px;overflow:hidden;text-decoration:none;color:inherit}
+.demo-card .ph{width:72px;min-height:80px;background:linear-gradient(135deg,#8B2E1F,#14131A);flex-shrink:0}
+.demo-card .bd{padding:10px 8px 10px 0;display:flex;flex-direction:column;justify-content:center;gap:2px}
+.demo-card .t{font-size:13px;font-weight:700;line-height:1.2}
+.demo-card .a{font-size:11px;color:#8B2E1F;font-weight:700}
+.demo-quote{margin:0 12px 12px;padding:10px 12px;border-left:3px solid var(--rosa);background:var(--paper);font-size:13px;line-height:1.45}
+.demo-cta{display:block;margin:0 12px 12px;background:var(--rosa);color:#fff;text-align:center;font-weight:700;padding:12px;border:none;font-size:14px;font-family:inherit}
+.demo-cta.ink{background:var(--ink)}
+.demo-toast{margin:0 12px 14px;background:var(--ink);color:var(--paper);padding:10px 12px;border-radius:8px;font-size:12px}
+.demo-toast b{color:var(--rosa)}
+
+/* Rules */
+.rules{display:grid;gap:12px}
+@media(min-width:560px){.rules{grid-template-columns:1fr 1fr}}
+.rule{padding:16px;border-radius:4px;border:1px solid var(--line);background:var(--paper)}
+.rule h3{margin:0 0 8px;font-size:14px}
+.rule.yes h3{color:var(--live)}
+.rule.no h3{color:var(--rosa-deep)}
+.rule ul{margin:0;padding-left:18px;font-size:13px;color:var(--muted)}
+.rule li{margin:4px 0}
+
+.footer{padding:28px 24px;text-align:center;font-size:12px;color:var(--muted)}
+.footer a{color:var(--rosa);font-weight:700;text-decoration:none}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <nav class="nav">
+    <p class="disp brand">Voces ù Identidad</p>
+    <a href="voces.html">? App Voces</a>
+  </nav>
+
+  <header class="cover">
+    <img class="logo" src="assets/voces/logo-voces-neg.svg" alt="Voces de Mùxico">
+    <p class="voice concept">La ciudad habla.</p>
+    <p class="sub">Manual de identidad ù editorial cinematogrùfica CDMX ù 7 recorridos, 7 protagonistas</p>
+  </header>
+
+  <section>
+    <p class="sec-label">01 ù Concepto</p>
+    <h2 class="disp">No es un tour. Es una voz.</h2>
+    <p class="lead voice">Cada recorrido tiene anfitriùn: Frida, Diego, Paquita, Cuarùnù La marca no vende calles; presta oùdo a quien las habitù.</p>
+    <p class="lead" style="margin-top:14px">Ateneo / Hotel = hospitalidad oro. <strong>Voces = relato rosa + tinta.</strong> Tipografùa de cartel, citas tipogrùficas, rosa mexicano como firma.</p>
+  </section>
+
+  <section>
+    <p class="sec-label">02 ù Logotipo</p>
+    <h2 class="disp">Wordmark ù VOCES ù</h2>
+    <p class="lead">Comillas latinas como firma de lo hablado. Siete puntos en arco = siete recorridos / onda de voz. Sin icono 3D ni emoji.</p>
+    <div class="logo-grid" style="margin-top:20px">
+      <div>
+        <div class="logo-tile light"><img src="assets/voces/logo-voces.svg" alt="Logo rosa"></div>
+        <p class="logo-cap">Rosa ù fondos claros</p>
+      </div>
+      <div>
+        <div class="logo-tile light"><img src="assets/voces/logo-voces-ink.svg" alt="Logo tinta"></div>
+        <p class="logo-cap">Tinta ù monocromo</p>
+      </div>
+      <div>
+        <div class="logo-tile dark"><img src="assets/voces/logo-voces-neg.svg" alt="Logo negativo"></div>
+        <p class="logo-cap">Negativo ù fondos oscuros</p>
+      </div>
+      <div>
+        <div class="logo-tile rosa"><img src="assets/voces/logo-voces-neg.svg" alt="Logo sobre rosa"></div>
+        <p class="logo-cap">Sobre rosa ù acento mùximo</p>
+      </div>
+    </div>
+  </section>
+
+  <section>
+    <p class="sec-label">03 ù Tipografùa</p>
+    <h2 class="disp">Tres voces tipogrùficas</h2>
+    <div class="type-block">
+      <p class="disp type-display">Barlow Condensed</p>
+      <p class="meta">Display ù tùtulos, headers, nombres de recorrido ù 600/700 ù uppercase</p>
+    </div>
+    <div class="type-block">
+      <p class="voice type-voice">ù7 recorridos. 7 protagonistas. Una ciudad contada por quienes la hicieron.ù</p>
+      <p class="meta">Fraunces italic ù tagline, citas de anfitriùn, guion</p>
+    </div>
+    <div class="type-block">
+      <p class="type-ui">Manrope ù cuerpo, botones, meta, itinerario. Clara en mùvil, sin ruido.</p>
+      <p class="meta">UI ù 400 / 500 / 700</p>
+    </div>
+  </section>
+
+  <section>
+    <p class="sec-label">04 ù Paleta</p>
+    <h2 class="disp">Tinta + rosa mexicano</h2>
+    <p class="lead">Piedra frùa en lugar de crema hotelera. El oro del Ateneo no entra en Voces.</p>
+    <div class="swatches">
+      <div class="swatch"><div class="chip" style="background:#14131A"></div><div class="info"><p class="name">Ink</p><p class="hex">#14131A</p><p class="role">Texto, headers, CTA recorrido</p></div></div>
+      <div class="swatch"><div class="chip" style="background:#E4007C"></div><div class="info"><p class="name">Rosa</p><p class="hex">#E4007C</p><p class="role">Firma de marca, CTA primario</p></div></div>
+      <div class="swatch"><div class="chip" style="background:#B0005F"></div><div class="info"><p class="name">Rosa deep</p><p class="hex">#B0005F</p><p class="role">Hover / ùnfasis</p></div></div>
+      <div class="swatch"><div class="chip" style="background:#0E5C5F"></div><div class="info"><p class="name">Live</p><p class="hex">#0E5C5F</p><p class="role">GPS ù modo recorrido</p></div></div>
+      <div class="swatch"><div class="chip" style="background:#E9E7EC"></div><div class="info"><p class="name">Surface</p><p class="hex">#E9E7EC</p><p class="role">App shell ù piedra frùa</p></div></div>
+      <div class="swatch"><div class="chip" style="background:#D9D6DD"></div><div class="info"><p class="name">Canvas</p><p class="hex">#D9D6DD</p><p class="role">Fondo exterior</p></div></div>
+      <div class="swatch"><div class="chip" style="background:#F7F6F9;border-bottom:1px solid var(--line)"></div><div class="info"><p class="name">Paper</p><p class="hex">#F7F6F9</p><p class="role">Cards, paneles</p></div></div>
+      <div class="swatch"><div class="chip" style="background:#5A5560"></div><div class="info"><p class="name">Muted</p><p class="hex">#5A5560</p><p class="role">Secundario</p></div></div>
+    </div>
+  </section>
+
+  <section>
+    <p class="sec-label">05 ù Acentos por recorrido</p>
+    <h2 class="disp">7 voces, 7 colores</h2>
+    <p class="lead">El rosa es la marca madre. Cada tour pinta detalle, nùmeros y anfitriùn con su acento.</p>
+    <div class="tour-swatches" id="tourSwatches"></div>
+  </section>
+
+  <section>
+    <p class="sec-label">06 ù Componentes</p>
+    <h2 class="disp">UI de la app</h2>
+    <div class="ui-stack">
+      <div class="demo-phone">
+        <div class="demo-banner">Modo recorrido activo ù mantùn la app abierta</div>
+        <div class="demo-header">
+          <div class="disp lg">Voces de Mùxico</div>
+          <div class="sub">RECORRIDO GUIADO</div>
+        </div>
+        <a class="demo-card" href="#">
+          <div class="ph"></div>
+          <div class="bd">
+            <div class="disp t" style="font-size:14px">Centro: El Choqueù</div>
+            <div class="a">Diego Rivera</div>
+            <div style="font-size:11px;color:var(--muted)">8 paradas ù 150 min</div>
+          </div>
+        </a>
+        <div class="demo-quote voice">ùFùjese en estos tùneles: parecen catedral de cementoùù</div>
+        <button class="demo-cta ink" type="button">Iniciar modo recorrido</button>
+        <button class="demo-cta" type="button">Consultar por WhatsApp</button>
+        <div class="demo-toast"><b>Llegaste a Metro Chabacano</b><div style="margin-top:4px;opacity:.9">La ciudad por debajo</div></div>
+      </div>
+    </div>
+  </section>
+
+  <section>
+    <p class="sec-label">07 ù Reglas</p>
+    <h2 class="disp">Sù / No</h2>
+    <div class="rules">
+      <div class="rule yes">
+        <h3 class="disp">Sù</h3>
+        <ul>
+          <li>Rosa mexicano + tinta como firma</li>
+          <li>Barlow Condensed en tùtulos</li>
+          <li>Fraunces en citas con ù ù</li>
+          <li>Acento del tour en anfitriùn e itinerario</li>
+          <li>Hero full-bleed con marca</li>
+        </ul>
+      </div>
+      <div class="rule no">
+        <h3 class="disp">No</h3>
+        <ul>
+          <li>Oro / crema del Hotel Virreyes</li>
+          <li>Oswald o Mulish (sistema Ateneo)</li>
+          <li>Cards decorativas sin acciùn</li>
+          <li>Pills, glow o pùrpura genùrico</li>
+          <li>Emoji como marca</li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <footer class="footer">
+    Voces de Mùxico ù Grupo Casa Pepe / Experience<br>
+    <a href="voces.html">Abrir catùlogo de recorridos</a>
+  </footer>
+</div>
+<script>
+const ACCENTS=[
+  {id:'mercados',t:'Mercados',a:'Doùa Florinda',hex:'#E8A317'},
+  {id:'chapultepec',t:'Chapultepec',a:'Maximiliano',hex:'#1B4332'},
+  {id:'centro',t:'Centro',a:'Diego Rivera',hex:'#8B2E1F'},
+  {id:'roma',t:'Roma',a:'Alfonso Cuarùn',hex:'#3D4F63'},
+  {id:'coyoacan',t:'Coyoacùn',a:'Frida Kahlo',hex:'#1E3A8A'},
+  {id:'chopo',t:'Chopo',a:'Rubùn Albarrùn',hex:'#B91C1C'},
+  {id:'lagunilla',t:'Lagunilla',a:'Paquita',hex:'#9A3412'}
+];
+document.getElementById('tourSwatches').innerHTML=ACCENTS.map(x=>`
+  <div class="tour-swatch" style="background:${x.hex}">
+    <p class="disp t">${x.t}</p>
+    <p class="a">${x.a}</p>
+    <p class="h">${x.hex}</p>
+  </div>`).join('');
+</script>
+</body>
+</html>

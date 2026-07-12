@@ -55,7 +55,9 @@
  <div class="note">Servicio del Ateneo · sin costo · sujeto a disponibilidad</div>
 </div>
 
+<script src="js/analytics.js"></script>
 <script>
+AteneoAnalytics.init({ page: 'ateneo' });
 const WA="525549305703";
 const MAIL="marketing@casapepe.mx";
 function hoy(){const d=new Date();return d.toISOString().slice(0,10);}
@@ -75,8 +77,15 @@ function datos(){
 function texto(d){
  return `🏛️ *Solicitud de espacio · Ateneo de Virreyes*\nEspacio: ${d.esp}\nFecha: ${d.fecha}\nHora: ${d.hora}\nNombre: ${d.nombre}\nHabitación: ${d.hab}`;
 }
-function enviarWA(){const d=datos();if(!d)return;window.open('https://wa.me/'+WA+'?text='+encodeURIComponent(texto(d)),'_blank');}
+function enviarWA(){
+ const d=datos();if(!d)return;
+ AteneoAnalytics.trackCtaWhatsapp({ win_type:'espacio', espacio:d.esp, hab:d.hab });
+ AteneoAnalytics.markFirstWin('espacio', { espacio:d.esp });
+ window.open('https://wa.me/'+WA+'?text='+encodeURIComponent(texto(d)),'_blank');
+}
 function enviarMail(){const d=datos();if(!d)return false;
+ AteneoAnalytics.track('cta_email', { win_type:'espacio', espacio:d.esp });
+ AteneoAnalytics.markFirstWin('espacio', { espacio:d.esp, channel:'email' });
  const sub=encodeURIComponent('Solicitud de espacio · Ateneo de Virreyes');
  const body=encodeURIComponent(texto(d).replace(/\*/g,''));
  window.location.href='mailto:'+MAIL+'?subject='+sub+'&body='+body;return false;}
