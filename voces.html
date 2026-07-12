@@ -8,10 +8,10 @@
 <style>
  *{box-sizing:border-box}
  body{margin:0;font-family:'Mulish',system-ui,sans-serif;color:#2B2017;background:#e7ddc8;display:flex;justify-content:center;min-height:100vh}
- .phone{width:100%;max-width:420px;background:#F4ECDD;min-height:100vh;padding-bottom:28px}
+ .phone{width:100%;max-width:420px;background:#F4ECDD;min-height:100vh;padding-bottom:28px;position:relative}
  .disp{font-family:'Oswald',sans-serif;font-weight:600;letter-spacing:.02em;text-transform:uppercase}
  header{background:#2B2017;color:#F4ECDD;padding:14px 16px 16px;text-align:center;border-bottom:3px solid #C9A227}
- .back{display:inline-block;color:#cdbf9c;font-size:12px;text-decoration:none;margin-bottom:6px}
+ .back{display:inline-block;color:#cdbf9c;font-size:12px;text-decoration:none;margin-bottom:6px;background:none;border:none;cursor:pointer;font-family:inherit}
  header .lg{font-size:22px;color:#C9A227;margin:0}
  header .sub{font-size:11px;color:#bcd3c0;letter-spacing:.12em;margin-top:4px}
  .hero{width:100%;height:160px;object-fit:cover;display:block;border-bottom:2px solid #C9A227}
@@ -19,7 +19,7 @@
  .intro p{font-size:13px;color:#5a4a30;line-height:1.5;margin:0}
  .list{padding:8px 14px 0;display:flex;flex-direction:column;gap:10px}
  .card{display:flex;gap:12px;background:#fff;border:1px solid #e2d5bf;border-radius:14px;overflow:hidden;text-decoration:none;color:inherit;cursor:pointer}
- .card img{width:92px;height:100%;min-height:96px;object-fit:cover;flex-shrink:0}
+ .card img{width:92px;min-height:96px;object-fit:cover;flex-shrink:0}
  .card .bd{padding:10px 10px 10px 0;display:flex;flex-direction:column;justify-content:center;gap:3px}
  .card .t{font-size:14px;font-weight:700;line-height:1.25}
  .card .a{font-size:11px;color:#2F8F96;font-weight:700}
@@ -30,41 +30,85 @@
  .detail-hero .bar .t{font-size:18px;margin:0}
  .detail-hero .bar .a{font-size:12px;opacity:.92;margin-top:2px}
  .quote{margin:14px 16px;padding:12px 14px;background:#fff;border-left:3px solid var(--accent,#B5472D);border-radius:0 10px 10px 0;font-size:13px;line-height:1.5;color:#3a2c14;font-style:italic}
- .sec-h{padding:8px 16px 4px;display:flex;justify-content:space-between;align-items:baseline}
+ .sec-h{padding:8px 16px 4px;display:flex;justify-content:space-between;align-items:baseline;gap:8px}
  .stops{padding:4px 16px 0}
- .stop{display:flex;gap:12px;padding:10px 0;border-bottom:1px dashed #e2d5bf}
+ .stop{display:flex;gap:12px;padding:10px 0;border-bottom:1px dashed #e2d5bf;cursor:pointer;align-items:flex-start}
+ .stop.here{background:rgba(47,143,150,.08);margin:0 -8px;padding:10px 8px;border-radius:10px}
+ .stop.done .num{background:#2F8F96}
  .num{width:28px;height:28px;border-radius:50%;background:var(--accent,#B5472D);color:#fff;display:flex;align-items:center;justify-content:center;font-size:12px;font-weight:700;flex-shrink:0}
  .stop .nm{font-size:14px;font-weight:700}
  .stop .sb{font-size:11px;color:#7a6a52;margin-top:2px}
- .cta{display:block;margin:16px 16px 8px;background:#25D366;color:#fff;text-align:center;text-decoration:none;font-weight:700;padding:14px;border-radius:12px;font-size:15px;border:none;width:calc(100% - 32px);cursor:pointer}
- .ghost{display:block;margin:0 16px;background:#fff;color:#2F8F96;border:1px solid #2F8F96;text-align:center;text-decoration:none;font-weight:700;padding:11px;border-radius:10px;font-size:14px}
+ .stop .meta{font-size:10px;color:#2F8F96;margin-top:3px;font-weight:700}
+ .cta{display:block;margin:16px 16px 8px;background:#25D366;color:#fff;text-align:center;text-decoration:none;font-weight:700;padding:14px;border-radius:12px;font-size:15px;border:none;width:calc(100% - 32px);cursor:pointer;font-family:inherit}
+ .cta.tour{background:#B5472D}
+ .cta.stop{background:#2B2017}
+ .ghost{display:block;margin:0 16px 8px;background:#fff;color:#2F8F96;border:1px solid #2F8F96;text-align:center;text-decoration:none;font-weight:700;padding:11px;border-radius:10px;font-size:14px;cursor:pointer;font-family:inherit;width:calc(100% - 32px)}
  .note{font-size:11px;color:#7a5e22;text-align:center;margin:10px 16px 0}
  .price{font-size:15px;font-weight:700;color:#B5472D}
+ .banner{position:sticky;top:0;z-index:20;background:#2F8F96;color:#fff;padding:10px 14px;font-size:13px;font-weight:700;display:none}
+ .banner.show{display:block}
+ .panel{margin:12px 16px;background:#fff;border:1px solid #e2d5bf;border-radius:12px;padding:12px 14px}
+ .panel h3{margin:0 0 6px;font-size:15px;color:#B5472D}
+ .panel p{margin:0 0 8px;font-size:13px;line-height:1.45;color:#3a2c14}
+ .panel .label{font-size:11px;font-weight:700;color:#7a6a52;text-transform:uppercase;letter-spacing:.04em;margin-top:8px}
+ .chip{display:inline-block;background:#F4ECDD;border:1px solid #e2d5bf;border-radius:8px;padding:4px 8px;font-size:11px;margin:2px 4px 2px 0;text-decoration:none;color:#2F8F96;font-weight:700}
+ .status{font-size:12px;color:#7a6a52;padding:0 16px;min-height:18px}
+ .toast{position:fixed;left:50%;transform:translateX(-50%);bottom:24px;max-width:380px;width:90%;background:#2B2017;color:#F4ECDD;padding:12px 14px;border-radius:12px;z-index:40;display:none;box-shadow:0 8px 24px rgba(0,0,0,.25)}
+ .toast.show{display:block}
+ .toast b{color:#C9A227}
 </style>
 </head>
 <body>
 <div class="phone" id="app">
   <div style="padding:40px;text-align:center;color:#7a6a52">Cargando…</div>
 </div>
+<div class="toast" id="toast"></div>
+<script src="js/tour-mode.js"></script>
 <script>
 const WA="525549305703";
 const money=n=>n==null?'':'$'+Number(n).toLocaleString('es-MX');
 const params=new URLSearchParams(location.search);
-const rid=params.get('r');
 const app=document.getElementById('app');
+const toastEl=document.getElementById('toast');
+let DATA=null;
+let tourCtrl=null;
+let currentTour=null;
+let uiState={view:'catalog', tourId:null, stopId:null};
 
-function waMsg(r){
-  return `🎙️ *Voces de México*\nRecorrido: ${r.titulo}\nAnfitrión: ${r.anfitrion}\nParadas: ${r.paradas.length}\nPrecio ref.: ${money(r.precio)} MXN\n\nQuiero reservar / más información desde Ateneo de Virreyes.`;
+function setUrl(){
+  const q=new URLSearchParams();
+  if(uiState.tourId) q.set('r', uiState.tourId);
+  if(uiState.stopId) q.set('s', uiState.stopId);
+  if(uiState.view==='tour') q.set('mode','tour');
+  const qs=q.toString();
+  history.replaceState(null,'', qs?`?${qs}`:location.pathname);
 }
 
-function renderCatalog(data){
-  const cards=data.recorridos.map(r=>`
+function showToast(title, body){
+  toastEl.innerHTML=`<b>${title}</b><div style="font-size:12px;margin-top:4px;opacity:.9">${body||''}</div>`;
+  toastEl.classList.add('show');
+  clearTimeout(showToast._t);
+  showToast._t=setTimeout(()=>toastEl.classList.remove('show'), 4500);
+}
+
+function waMsg(r){
+  return `🎙️ *Voces de México*\nRecorrido: ${r.titulo}\nAnfitrión: ${r.anfitrion}\nParadas: ${r.paradas.length}\nPVP ref.: ${money(r.precio)}\n\nQuiero reservar / más información desde Ateneo de Virreyes.`;
+}
+
+function findTour(id){return DATA.recorridos.find(x=>x.id===id);}
+function findStop(r,id){return r.paradas.find(x=>x.id===id);}
+
+function renderCatalog(){
+  uiState={view:'catalog', tourId:null, stopId:null};
+  if(tourCtrl){tourCtrl.stop();tourCtrl=null;currentTour=null;}
+  setUrl();
+  const cards=DATA.recorridos.map(r=>`
     <a class="card" href="?r=${encodeURIComponent(r.id)}">
       <img src="${r.cover}" alt="">
       <div class="bd">
         <div class="t">${r.titulo}</div>
         <div class="a">${r.anfitrion}</div>
-        <div class="p">${r.paradas.length} paradas · ${money(r.precio)}</div>
+        <div class="p">${r.paradas.length} paradas · ${r.duracion_min||150} min · ${money(r.precio)}</div>
       </div>
     </a>`).join('');
   app.innerHTML=`
@@ -73,26 +117,41 @@ function renderCatalog(data){
       <div class="disp lg">Voces de México</div>
       <div class="sub">7 RECORRIDOS · 7 PROTAGONISTAS</div>
     </header>
-    <img class="hero" src="${data.hero}" alt="Voces de México">
-    <div class="intro"><p>${data.tagline}</p></div>
-    <div class="list">${cards}</div>`;
+    <img class="hero" src="${DATA.hero}" alt="Voces de México">
+    <div class="intro"><p>${DATA.tagline}</p></div>
+    <div class="list">${cards}</div>
+    <div class="note">${DATA.fuente||''}</div>`;
 }
 
-function renderDetail(data,r){
+function stopRow(p, progress, hereId){
+  const done=progress&&progress.visited&&progress.visited[p.id];
+  const here=hereId===p.id;
+  const cls=['stop', done?'done':'', here?'here':''].filter(Boolean).join(' ');
+  return `<div class="${cls}" data-stop="${p.id}">
+    <div class="num">${done?'✓':p.orden}</div>
+    <div>
+      <div class="nm">${p.nombre}</div>
+      ${p.subtitulo?`<div class="sb">${p.subtitulo}</div>`:''}
+      <div class="meta">${p.hora||''}${here?' · Estás aquí':done?' · Visitado':''}</div>
+    </div>
+  </div>`;
+}
+
+function renderDetail(r, opts={}){
+  uiState={view: opts.tourMode?'tour':'detail', tourId:r.id, stopId:null};
+  currentTour=r;
+  setUrl();
   document.documentElement.style.setProperty('--accent', r.accent||'#B5472D');
-  const stops=r.paradas.map(p=>`
-    <div class="stop">
-      <div class="num">${p.orden}</div>
-      <div>
-        <div class="nm">${p.nombre}</div>
-        ${p.subtitulo?`<div class="sb">${p.subtitulo}</div>`:''}
-      </div>
-    </div>`).join('');
+  const progress=VocesTourMode.loadProgress(r.id);
+  const hereId=opts.hereId||null;
+  const stops=r.paradas.map(p=>stopRow(p, progress, hereId)).join('');
+  const tourActive=tourCtrl&&tourCtrl.isActive();
   app.innerHTML=`
+    <div class="banner ${opts.banner?'show':''}" id="geoBanner">${opts.banner||''}</div>
     <header>
-      <a href="voces.html" class="back">← Todos los recorridos</a>
+      <button type="button" class="back" id="backCat">← Todos los recorridos</button>
       <div class="disp lg" style="font-size:18px">Voces de México</div>
-      <div class="sub">RECORRIDO GUIADO</div>
+      <div class="sub">${tourActive?'MODO RECORRIDO ACTIVO':'RECORRIDO GUIADO'}</div>
     </header>
     <div class="detail-hero">
       <img src="${r.cover}" alt="">
@@ -102,27 +161,125 @@ function renderDetail(data,r){
       </div>
     </div>
     <div class="quote">“${r.cita}”</div>
+    <div class="panel">
+      <div class="label">Duración · PVP</div>
+      <p style="margin:4px 0 0">${r.duracion_min||150} min · ${money(r.precio)} · ${r.paradas.length} puntos</p>
+      ${r.maps_ruta_url?`<a class="chip" href="${r.maps_ruta_url}" target="_blank" rel="noopener">Abrir ruta en Maps</a>`:''}
+    </div>
     <div class="sec-h">
       <div class="disp" style="font-size:16px;color:#B5472D">Itinerario</div>
-      <span class="price">${money(r.precio)} MXN</span>
+      <span class="price">${money(r.precio)}</span>
     </div>
-    <div class="stops">${stops}</div>
+    <div class="status" id="geoStatus">${tourActive?'Buscando tu ubicación…':'Toca una parada o inicia el modo recorrido.'}</div>
+    <div class="stops" id="stopList">${stops}</div>
+    ${tourActive
+      ?`<button class="cta stop" id="btnStopTour">Detener modo recorrido</button>
+        <button class="ghost" id="btnSim" type="button">Simular llegada (prueba)</button>`
+      :`<button class="cta tour" id="btnStartTour">Iniciar modo recorrido</button>`}
     <button class="cta" id="wa">Consultar por WhatsApp</button>
     <a class="ghost" href="./">Volver al Ateneo</a>
-    <div class="note">Experiencia Sincrético · sujeta a disponibilidad · comisión concierge 10%</div>`;
-  document.getElementById('wa').onclick=()=>{
-    window.open('https://wa.me/'+WA+'?text='+encodeURIComponent(waMsg(r)),'_blank');
+    <div class="note">Notificaciones al llegar a cada punto · requiere ubicación con la app abierta</div>`;
+
+  document.getElementById('backCat').onclick=()=>renderCatalog();
+  document.getElementById('wa').onclick=()=>window.open('https://wa.me/'+WA+'?text='+encodeURIComponent(waMsg(r)),'_blank');
+  document.querySelectorAll('#stopList .stop').forEach(el=>{
+    el.onclick=()=>renderStop(r, el.dataset.stop);
+  });
+  const startBtn=document.getElementById('btnStartTour');
+  if(startBtn) startBtn.onclick=()=>startTour(r);
+  const stopBtn=document.getElementById('btnStopTour');
+  if(stopBtn) stopBtn.onclick=()=>{ if(tourCtrl) tourCtrl.stop(); tourCtrl=null; renderDetail(r); };
+  const sim=document.getElementById('btnSim');
+  if(sim) sim.onclick=()=>{
+    const next=r.paradas.find(p=>!(progress.visited&&progress.visited[p.id]))||r.paradas[0];
+    if(tourCtrl) tourCtrl.simulateAt(next.id);
   };
+}
+
+function renderStop(r, stopId){
+  const p=findStop(r, stopId);
+  if(!p){renderDetail(r);return;}
+  uiState={view:'stop', tourId:r.id, stopId:p.id};
+  setUrl();
+  document.documentElement.style.setProperty('--accent', r.accent||'#B5472D');
+  const links=(p.links||[]).map(l=>`<a class="chip" href="${l.url}" target="_blank" rel="noopener">${l.label}</a>`).join('');
+  app.innerHTML=`
+    <header>
+      <button type="button" class="back" id="backDet">← ${r.titulo.split(':')[0]}</button>
+      <div class="disp lg" style="font-size:18px">Parada ${p.orden}</div>
+      <div class="sub">${p.hora||''}</div>
+    </header>
+    <div class="panel" style="margin-top:16px">
+      <h3>${p.nombre}</h3>
+      <p>${p.subtitulo||''}</p>
+      <div class="label">Tip</div>
+      <p>${p.tip||'—'}</p>
+      <div class="label">Horario / acceso</div>
+      <p>${p.horario||'—'}</p>
+      ${p.guion_es?`<div class="label">Guion · ${r.anfitrion}</div><p style="font-style:italic">“${p.guion_es}”</p>`:''}
+      ${p.guion_en?`<div class="label">Script (EN)</div><p style="font-style:italic;opacity:.85">“${p.guion_en}”</p>`:''}
+      <div style="margin-top:10px">
+        <a class="chip" href="${p.maps_url}" target="_blank" rel="noopener">Abrir en Maps</a>
+        ${links}
+      </div>
+    </div>
+    <button class="cta tour" id="btnStartHere">Iniciar recorrido desde aquí</button>
+    <button class="ghost" id="backDet2" type="button">Volver al itinerario</button>`;
+  document.getElementById('backDet').onclick=()=>renderDetail(r, {tourMode:!!(tourCtrl&&tourCtrl.isActive())});
+  document.getElementById('backDet2').onclick=()=>renderDetail(r, {tourMode:!!(tourCtrl&&tourCtrl.isActive())});
+  document.getElementById('btnStartHere').onclick=()=>startTour(r);
+}
+
+async function startTour(r){
+  try{
+    if(tourCtrl) tourCtrl.stop();
+    tourCtrl=VocesTourMode.createTourMode({
+      recorrido:r,
+      onEnter:(parada, n)=>{
+        showToast(n.title, n.body);
+        renderDetail(r, {tourMode:true, hereId:parada.id, banner:`Estás en: ${parada.nombre}`});
+      },
+      onUpdate:({here, nearest})=>{
+        const st=document.getElementById('geoStatus');
+        if(!st) return;
+        if(here) st.textContent=`En ${here.nombre}`;
+        else if(nearest.parada) st.textContent=`Más cerca: ${nearest.parada.nombre} · ${Math.round(nearest.dist)} m`;
+        else st.textContent='GPS activo';
+        if(here){
+          const ban=document.getElementById('geoBanner');
+          if(ban){ban.textContent=`Estás en: ${here.nombre}`;ban.classList.add('show');}
+        }
+      },
+      onError:(err)=>{
+        const st=document.getElementById('geoStatus');
+        if(st) st.textContent='No se pudo obtener ubicación: '+(err.message||err.code);
+        showToast('Ubicación', 'Activa el GPS y permite el permiso para el modo recorrido.');
+      }
+    });
+    await tourCtrl.start();
+    renderDetail(r, {tourMode:true, banner:'Modo recorrido activo · mantén la app abierta'});
+  }catch(e){
+    showToast('Error', e.message||String(e));
+  }
 }
 
 fetch('data/voces.json')
   .then(r=>r.json())
   .then(data=>{
+    DATA=data;
+    const rid=params.get('r');
+    const sid=params.get('s');
+    const mode=params.get('mode');
     if(rid){
-      const r=data.recorridos.find(x=>x.id===rid);
-      if(r){renderDetail(data,r);return;}
+      const r=findTour(rid);
+      if(r){
+        if(sid){renderStop(r, sid);return;}
+        renderDetail(r);
+        if(mode==='tour') startTour(r);
+        return;
+      }
     }
-    renderCatalog(data);
+    renderCatalog();
   })
   .catch(()=>{
     app.innerHTML='<div style="padding:40px;text-align:center;color:#B5472D">No se pudo cargar Voces de México.</div>';
