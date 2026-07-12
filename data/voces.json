@@ -1,0 +1,161 @@
+{
+  "titulo": "Voces de México",
+  "tagline": "7 recorridos. 7 protagonistas. Una ciudad contada por quienes la hicieron.",
+  "hero": "assets/voces/hero.jpg",
+  "recorridos": [
+    {
+      "id": "mercados",
+      "titulo": "Mercados: El Vientre de la Bestia",
+      "subtitulo": "El metro, el comercio y el alma de la ciudad",
+      "anfitrion": "Doña Florinda",
+      "cita": "Fíjese en estos túneles: parecen catedral de cemento... Así como el metro de Moscú presume palacios bajo tierra, el nuestro presume cine. Agarre bien su cartera, que nos vamos al mercado.",
+      "accent": "#E8A317",
+      "cover": "assets/voces/mercados.jpg",
+      "precio": 890,
+      "paradas": [
+        { "orden": 1, "nombre": "Estación Chabacano", "subtitulo": "Línea 9 y 'Total Recall'" },
+        { "orden": 2, "nombre": "El Subsuelo Urbano", "subtitulo": "La ciudad por debajo" },
+        { "orden": 3, "nombre": "Ruta de los Pochtecas", "subtitulo": "El origen del comercio" },
+        { "orden": 4, "nombre": "Mercado de Jamaica", "subtitulo": "Las flores de 500 años" },
+        { "orden": 5, "nombre": "Mercado de Sonora", "subtitulo": "Brujería y misticismo" },
+        { "orden": 6, "nombre": "La Ruta del Maíz", "subtitulo": "La carne de los hombres" },
+        { "orden": 7, "nombre": "Mercado de San Juan", "subtitulo": "Lo exótico y el Kilómetro 0" },
+        { "orden": 8, "nombre": "Mercado de la Ciudadela", "subtitulo": "El barro y la plata" },
+        { "orden": 9, "nombre": "El Pasillo de las Artesanías", "subtitulo": "" },
+        { "orden": 10, "nombre": "Degustación de Frutas de México", "subtitulo": "Cierre" }
+      ]
+    },
+    {
+      "id": "chapultepec",
+      "titulo": "Chapultepec: El Bulevar Imperial",
+      "subtitulo": "Del Paseo de la Reforma al Castillo",
+      "anfitrion": "Maximiliano de Habsburgo",
+      "cita": "La pensé como el Ring de mi Viena natal y como los bulevares de París. En Europa una avenida es una declaración de poder. Yo soñé un bulevar imperial y México lo volvió la sala de su casa.",
+      "accent": "#1B4332",
+      "cover": "assets/voces/chapultepec.jpg",
+      "precio": 990,
+      "paradas": [
+        { "orden": 1, "nombre": "Paseo de la Reforma", "subtitulo": "El Bulevar de la Emperatriz" },
+        { "orden": 2, "nombre": "Puerta de los Leones", "subtitulo": "Entrada al pulmón urbano" },
+        { "orden": 3, "nombre": "Bosque de Chapultepec", "subtitulo": "Primera Sección" },
+        { "orden": 4, "nombre": "El Sargento", "subtitulo": "El ahuehuete histórico" },
+        { "orden": 5, "nombre": "El Audiorama", "subtitulo": "Refugio sonoro" },
+        { "orden": 6, "nombre": "Monumento a los Niños Héroes", "subtitulo": "" },
+        { "orden": 7, "nombre": "Castillo de Chapultepec", "subtitulo": "La Residencia Imperial" },
+        { "orden": 8, "nombre": "Museo Nacional de Historia", "subtitulo": "Ecos del muralismo" },
+        { "orden": 9, "nombre": "Acueducto y Museo de Antropología", "subtitulo": "Exterior" },
+        { "orden": 10, "nombre": "Polanco y el Auditorio", "subtitulo": "Despedida contemporánea" }
+      ]
+    },
+    {
+      "id": "centro",
+      "titulo": "Centro: El Choque de Dos Mundos",
+      "subtitulo": "De Iztapalapa a Bellas Artes",
+      "anfitrion": "Diego Rivera",
+      "cita": "Empecemos donde todo se torció y se fundó a la vez: aquí, en la calzada de Iztapalapa. Entendí que un muro podía contar la historia de un pueblo entero —y me vine a contar la nuestra aquí, donde empezó.",
+      "accent": "#8B2E1F",
+      "cover": "assets/voces/centro.jpg",
+      "precio": 950,
+      "paradas": [
+        { "orden": 1, "nombre": "Hospital de Jesús", "subtitulo": "El primer cruce de mundos" },
+        { "orden": 2, "nombre": "Templo Mayor", "subtitulo": "La fundación de Tenochtitlan" },
+        { "orden": 3, "nombre": "El Zócalo", "subtitulo": "Plaza de la Constitución" },
+        { "orden": 4, "nombre": "Palacio Nacional", "subtitulo": "Los muros de la historia" },
+        { "orden": 5, "nombre": "Catedral Metropolitana", "subtitulo": "Hundimientos y oro" },
+        { "orden": 6, "nombre": "San Ildefonso", "subtitulo": "La cuna del muralismo" },
+        { "orden": 7, "nombre": "Plaza Tolsá", "subtitulo": "El Caballito y el MUNAL" },
+        { "orden": 8, "nombre": "Palacio Postal", "subtitulo": "La arquitectura ecléctica" },
+        { "orden": 9, "nombre": "Casa de los Azulejos y Torre Latino", "subtitulo": "" },
+        { "orden": 10, "nombre": "Alameda Central y Bellas Artes", "subtitulo": "Cierre" }
+      ]
+    },
+    {
+      "id": "roma",
+      "titulo": "Roma: Ecos de la Infancia",
+      "subtitulo": "Roma, Condesa y el sonido de la ciudad",
+      "anfitrion": "Alfonso Cuarón",
+      "cita": "Cuando filmé Roma quise que se sintiera el ruido de los coches sobre Reforma a las siete de la mañana, ese rumor que para mí es el sonido de la infancia.",
+      "accent": "#4A5568",
+      "cover": "assets/voces/roma.jpg",
+      "precio": 920,
+      "paradas": [
+        { "orden": 1, "nombre": "Ángel de la Independencia", "subtitulo": "Punto de reunión nacional · Entrada" },
+        { "orden": 2, "nombre": "Memoria de la Palma", "subtitulo": "El duelo urbano" },
+        { "orden": 3, "nombre": "Zona Rosa", "subtitulo": "La comunidad y el orgullo" },
+        { "orden": 4, "nombre": "Glorieta de Cibeles", "subtitulo": "Conexión transatlántica" },
+        { "orden": 5, "nombre": "Avenida Oaxaca", "subtitulo": "La transición arquitectónica" },
+        { "orden": 6, "nombre": "Colonia Roma y Av. Álvaro Obregón", "subtitulo": "" },
+        { "orden": 7, "nombre": "Mercado Medellín", "subtitulo": "La 'Pequeña Colombia'" },
+        { "orden": 8, "nombre": "Avenida Amsterdam", "subtitulo": "El óvalo del antiguo hipódromo" },
+        { "orden": 9, "nombre": "Parque España", "subtitulo": "Refugio en La Condesa" },
+        { "orden": 10, "nombre": "Churrería El Moro", "subtitulo": "Un cierre clásico" }
+      ]
+    },
+    {
+      "id": "coyoacan",
+      "titulo": "Coyoacán: El Refugio del Arte",
+      "subtitulo": "Desde Casa Pepe hasta el corazón del barrio",
+      "anfitrion": "Frida Kahlo",
+      "cita": "Soy Frida y hoy los llevo a mi casa: a Coyoacán, donde nací, amé a Diego y pinté hasta el último día. Viajamos como mi pueblo, en metro.",
+      "accent": "#1E3A8A",
+      "cover": "assets/voces/coyoacan.jpg",
+      "precio": 980,
+      "paradas": [
+        { "orden": 1, "nombre": "Casa Pepe", "subtitulo": "Arranque céntrico" },
+        { "orden": 2, "nombre": "Metro Línea 2", "subtitulo": "El viaje subterráneo al sur" },
+        { "orden": 3, "nombre": "Museo de las Intervenciones", "subtitulo": "Cortés y la Malinche" },
+        { "orden": 4, "nombre": "Prepa 6 UNAM", "subtitulo": "El mural escondido" },
+        { "orden": 5, "nombre": "La Casa Azul", "subtitulo": "Exterior del refugio" },
+        { "orden": 6, "nombre": "Mercado de Coyoacán", "subtitulo": "Colores y texturas" },
+        { "orden": 7, "nombre": "Templo de Getsemaní", "subtitulo": "" },
+        { "orden": 8, "nombre": "Casa de Cortés y Café El Jarocho", "subtitulo": "" },
+        { "orden": 9, "nombre": "Fuente de los Coyotes", "subtitulo": "El corazón del barrio" },
+        { "orden": 10, "nombre": "San Juan Bautista", "subtitulo": "Despedida con sabores locales" }
+      ]
+    },
+    {
+      "id": "chopo",
+      "titulo": "Santa María y el Chopo: La Ciudad Viva",
+      "subtitulo": "Rock, Metrobús y el pulso del barrio",
+      "anfitrion": "Rubén Albarrán",
+      "cita": "Llegamos en Metrobús, ese gusano rojo que cruza la ciudad... La ciudad es un escenario vivo: lo que para unos es tráfico, para mí es una canción que apenas empieza.",
+      "accent": "#B91C1C",
+      "cover": "assets/voces/chopo.jpg",
+      "precio": 870,
+      "paradas": [
+        { "orden": 1, "nombre": "Av. México-Tenochtitlan", "subtitulo": "La vieja calzada de Tlacopan" },
+        { "orden": 2, "nombre": "El Gusano Rojo", "subtitulo": "Inmersión en Metrobús" },
+        { "orden": 3, "nombre": "Tianguis Cultural del Chopo", "subtitulo": "Culturas urbanas" },
+        { "orden": 4, "nombre": "Escena del Rock Urbano", "subtitulo": "Rockdrigo y El Tri" },
+        { "orden": 5, "nombre": "Biblioteca Vasconcelos", "subtitulo": "La megabiblioteca" },
+        { "orden": 6, "nombre": "Av. de los Insurgentes", "subtitulo": "La arteria infinita" },
+        { "orden": 7, "nombre": "Santa María la Ribera", "subtitulo": "El antiguo límite" },
+        { "orden": 8, "nombre": "Kiosko Morisco", "subtitulo": "Joya de hierro" },
+        { "orden": 9, "nombre": "Calles en Transición", "subtitulo": "El pulso de la gentrificación" },
+        { "orden": 10, "nombre": "Museo de Geología", "subtitulo": "Cierre barrial" }
+      ]
+    },
+    {
+      "id": "lagunilla",
+      "titulo": "Lagunilla: El Barrio Bravo y el Despecho",
+      "subtitulo": "Mariachi, mercados y resistencia",
+      "anfitrion": "Paquita la del Barrio",
+      "cita": "Esta plaza es la catedral del mariachi... en todo el mundo el pueblo inventa una música para llorar bonito lo que duele. Aquí lloramos con trompeta y orgullo.",
+      "accent": "#9A3412",
+      "cover": "assets/voces/lagunilla.jpg",
+      "precio": 900,
+      "paradas": [
+        { "orden": 1, "nombre": "Plaza Garibaldi", "subtitulo": "La catedral del mariachi" },
+        { "orden": 2, "nombre": "Callejón Juan Gabriel", "subtitulo": "El Divo y El Noa Noa" },
+        { "orden": 3, "nombre": "Eje Central", "subtitulo": "La frontera vial" },
+        { "orden": 4, "nombre": "Mercado de la Lagunilla", "subtitulo": "Antigüedades y memorias" },
+        { "orden": 5, "nombre": "Mercado del Baratillo", "subtitulo": "Resquicios del siglo XIX" },
+        { "orden": 6, "nombre": "Las Vecindades", "subtitulo": "El tejido social histórico" },
+        { "orden": 7, "nombre": "Tepito \"El Barrio Bravo\"", "subtitulo": "Resistencia y piratería" },
+        { "orden": 8, "nombre": "Migración Coreana", "subtitulo": "Nuevas dinámicas del barrio" },
+        { "orden": 9, "nombre": "Mercado de Sonora", "subtitulo": "La Santa Muerte y lo oculto" },
+        { "orden": 10, "nombre": "Coctelería de Barrio", "subtitulo": "Despedida y gastronomía" }
+      ]
+    }
+  ]
+}

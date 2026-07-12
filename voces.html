@@ -1,0 +1,132 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Voces de México · Ateneo de Virreyes</title>
+<link href="https://fonts.googleapis.com/css2?family=Oswald:wght@500;600&family=Mulish:wght@400;500;700&display=swap" rel="stylesheet">
+<style>
+ *{box-sizing:border-box}
+ body{margin:0;font-family:'Mulish',system-ui,sans-serif;color:#2B2017;background:#e7ddc8;display:flex;justify-content:center;min-height:100vh}
+ .phone{width:100%;max-width:420px;background:#F4ECDD;min-height:100vh;padding-bottom:28px}
+ .disp{font-family:'Oswald',sans-serif;font-weight:600;letter-spacing:.02em;text-transform:uppercase}
+ header{background:#2B2017;color:#F4ECDD;padding:14px 16px 16px;text-align:center;border-bottom:3px solid #C9A227}
+ .back{display:inline-block;color:#cdbf9c;font-size:12px;text-decoration:none;margin-bottom:6px}
+ header .lg{font-size:22px;color:#C9A227;margin:0}
+ header .sub{font-size:11px;color:#bcd3c0;letter-spacing:.12em;margin-top:4px}
+ .hero{width:100%;height:160px;object-fit:cover;display:block;border-bottom:2px solid #C9A227}
+ .intro{padding:14px 16px 6px}
+ .intro p{font-size:13px;color:#5a4a30;line-height:1.5;margin:0}
+ .list{padding:8px 14px 0;display:flex;flex-direction:column;gap:10px}
+ .card{display:flex;gap:12px;background:#fff;border:1px solid #e2d5bf;border-radius:14px;overflow:hidden;text-decoration:none;color:inherit;cursor:pointer}
+ .card img{width:92px;height:100%;min-height:96px;object-fit:cover;flex-shrink:0}
+ .card .bd{padding:10px 10px 10px 0;display:flex;flex-direction:column;justify-content:center;gap:3px}
+ .card .t{font-size:14px;font-weight:700;line-height:1.25}
+ .card .a{font-size:11px;color:#2F8F96;font-weight:700}
+ .card .p{font-size:12px;color:#7a6a52}
+ .detail-hero{position:relative}
+ .detail-hero img{width:100%;height:200px;object-fit:cover;display:block}
+ .detail-hero .bar{position:absolute;left:0;right:0;bottom:0;padding:14px 16px;background:linear-gradient(transparent,rgba(20,10,0,.85));color:#fff}
+ .detail-hero .bar .t{font-size:18px;margin:0}
+ .detail-hero .bar .a{font-size:12px;opacity:.92;margin-top:2px}
+ .quote{margin:14px 16px;padding:12px 14px;background:#fff;border-left:3px solid var(--accent,#B5472D);border-radius:0 10px 10px 0;font-size:13px;line-height:1.5;color:#3a2c14;font-style:italic}
+ .sec-h{padding:8px 16px 4px;display:flex;justify-content:space-between;align-items:baseline}
+ .stops{padding:4px 16px 0}
+ .stop{display:flex;gap:12px;padding:10px 0;border-bottom:1px dashed #e2d5bf}
+ .num{width:28px;height:28px;border-radius:50%;background:var(--accent,#B5472D);color:#fff;display:flex;align-items:center;justify-content:center;font-size:12px;font-weight:700;flex-shrink:0}
+ .stop .nm{font-size:14px;font-weight:700}
+ .stop .sb{font-size:11px;color:#7a6a52;margin-top:2px}
+ .cta{display:block;margin:16px 16px 8px;background:#25D366;color:#fff;text-align:center;text-decoration:none;font-weight:700;padding:14px;border-radius:12px;font-size:15px;border:none;width:calc(100% - 32px);cursor:pointer}
+ .ghost{display:block;margin:0 16px;background:#fff;color:#2F8F96;border:1px solid #2F8F96;text-align:center;text-decoration:none;font-weight:700;padding:11px;border-radius:10px;font-size:14px}
+ .note{font-size:11px;color:#7a5e22;text-align:center;margin:10px 16px 0}
+ .price{font-size:15px;font-weight:700;color:#B5472D}
+</style>
+</head>
+<body>
+<div class="phone" id="app">
+  <div style="padding:40px;text-align:center;color:#7a6a52">Cargando…</div>
+</div>
+<script>
+const WA="525549305703";
+const money=n=>n==null?'':'$'+Number(n).toLocaleString('es-MX');
+const params=new URLSearchParams(location.search);
+const rid=params.get('r');
+const app=document.getElementById('app');
+
+function waMsg(r){
+  return `🎙️ *Voces de México*\nRecorrido: ${r.titulo}\nAnfitrión: ${r.anfitrion}\nParadas: ${r.paradas.length}\nPrecio ref.: ${money(r.precio)} MXN\n\nQuiero reservar / más información desde Ateneo de Virreyes.`;
+}
+
+function renderCatalog(data){
+  const cards=data.recorridos.map(r=>`
+    <a class="card" href="?r=${encodeURIComponent(r.id)}">
+      <img src="${r.cover}" alt="">
+      <div class="bd">
+        <div class="t">${r.titulo}</div>
+        <div class="a">${r.anfitrion}</div>
+        <div class="p">${r.paradas.length} paradas · ${money(r.precio)}</div>
+      </div>
+    </a>`).join('');
+  app.innerHTML=`
+    <header>
+      <a href="./" class="back">← Volver a Ateneo de Virreyes</a>
+      <div class="disp lg">Voces de México</div>
+      <div class="sub">7 RECORRIDOS · 7 PROTAGONISTAS</div>
+    </header>
+    <img class="hero" src="${data.hero}" alt="Voces de México">
+    <div class="intro"><p>${data.tagline}</p></div>
+    <div class="list">${cards}</div>`;
+}
+
+function renderDetail(data,r){
+  document.documentElement.style.setProperty('--accent', r.accent||'#B5472D');
+  const stops=r.paradas.map(p=>`
+    <div class="stop">
+      <div class="num">${p.orden}</div>
+      <div>
+        <div class="nm">${p.nombre}</div>
+        ${p.subtitulo?`<div class="sb">${p.subtitulo}</div>`:''}
+      </div>
+    </div>`).join('');
+  app.innerHTML=`
+    <header>
+      <a href="voces.html" class="back">← Todos los recorridos</a>
+      <div class="disp lg" style="font-size:18px">Voces de México</div>
+      <div class="sub">RECORRIDO GUIADO</div>
+    </header>
+    <div class="detail-hero">
+      <img src="${r.cover}" alt="">
+      <div class="bar">
+        <div class="disp t">${r.titulo}</div>
+        <div class="a">Anfitrión: ${r.anfitrion}</div>
+      </div>
+    </div>
+    <div class="quote">“${r.cita}”</div>
+    <div class="sec-h">
+      <div class="disp" style="font-size:16px;color:#B5472D">Itinerario</div>
+      <span class="price">${money(r.precio)} MXN</span>
+    </div>
+    <div class="stops">${stops}</div>
+    <button class="cta" id="wa">Consultar por WhatsApp</button>
+    <a class="ghost" href="./">Volver al Ateneo</a>
+    <div class="note">Experiencia Sincrético · sujeta a disponibilidad · comisión concierge 10%</div>`;
+  document.getElementById('wa').onclick=()=>{
+    window.open('https://wa.me/'+WA+'?text='+encodeURIComponent(waMsg(r)),'_blank');
+  };
+}
+
+fetch('data/voces.json')
+  .then(r=>r.json())
+  .then(data=>{
+    if(rid){
+      const r=data.recorridos.find(x=>x.id===rid);
+      if(r){renderDetail(data,r);return;}
+    }
+    renderCatalog(data);
+  })
+  .catch(()=>{
+    app.innerHTML='<div style="padding:40px;text-align:center;color:#B5472D">No se pudo cargar Voces de México.</div>';
+  });
+</script>
+</body>
+</html>
